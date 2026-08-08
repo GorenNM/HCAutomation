@@ -1,0 +1,30 @@
+{
+  "case_url": "http://sipi.sic.gov.co/sipi/View.ashx?4371435",
+  "url_final": "https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639216217132076259",
+  "documentos": [
+    {
+      "archivo": "doc01.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=09000002819f5c8e",
+      "etiqueta": "TM128 - Niega con oposición",
+      "tipo": "TM128",
+      "content_type": "application/pdf",
+      "bytes": 579191
+    },
+    {
+      "archivo": "doc02.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=090000028186ba51",
+      "etiqueta": "TM6 - Resumen de la Solicitud de Marca",
+      "tipo": "TM6",
+      "content_type": "application/pdf",
+      "bytes": 206107
+    },
+    {
+      "archivo": "doc03.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=090000028186ba4e",
+      "etiqueta": "Tipo de Imagen",
+      "tipo": "OTRO",
+      "content_type": "application/pdf",
+      "bytes": 20948
+    }
+  ]
+}

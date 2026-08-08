@@ -1,0 +1,30 @@
+{
+  "case_url": "http://sipi.sic.gov.co/sipi/View.ashx?3857028",
+  "url_final": "https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639216217252165084",
+  "documentos": [
+    {
+      "archivo": "doc01.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=09000002818fe7cb",
+      "etiqueta": "184 - TM Apelación confirma",
+      "tipo": "APELACION",
+      "content_type": "application/pdf",
+      "bytes": 190258
+    },
+    {
+      "archivo": "doc02.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=0900000281815ad4",
+      "etiqueta": "TM9 - Niega sin oposición",
+      "tipo": "TM9",
+      "content_type": "application/pdf",
+      "bytes": 88336
+    },
+    {
+      "archivo": "doc03.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=0900000281635460",
+      "etiqueta": "TM6 - Resumen de la Solicitud de Marca",
+      "tipo": "TM6",
+      "content_type": "application/pdf",
+      "bytes": 58822
+    }
+  ]
+}

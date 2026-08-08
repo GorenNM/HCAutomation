@@ -1,0 +1,13 @@
+.venv/
+.venv-win/
+build/
+dist/
+temp/
+salida/
+__pycache__/
+*.pyc
+.pytest_cache/
+.coverage
+.hypothesis/
+~$*
+*.tmp

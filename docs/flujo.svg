@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1340" height="1016" viewBox="0 0 1340 1016">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M2 1 L8 5 L2 9" fill="none" stroke="#6B7A8A" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect x="0" y="0" width="1340" height="1016" fill="#FFFFFF"/>
+<text x="28" y="44" font-family="DejaVu Sans, Arial, sans-serif" font-size="18" font-weight="bold" fill="#16202C">Flujo de un expediente</text><text x="28" y="66" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" fill="#5A6B7B">de una fila del reporte a N filas de salida · a la derecha, qué pasa cuando cada paso falla</text>
+<line x1="424" y1="226" x2="424" y2="256" stroke="#6B7A8A" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="424" y1="334" x2="424" y2="364" stroke="#6B7A8A" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="424" y1="442" x2="424" y2="472" stroke="#6B7A8A" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="424" y1="550" x2="424" y2="580" stroke="#6B7A8A" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="424" y1="658" x2="424" y2="688" stroke="#6B7A8A" stroke-width="1.6" marker-end="url(#arr)"/>
+<line x1="424" y1="766" x2="424" y2="796" stroke="#6B7A8A" stroke-width="1.6" marker-end="url(#arr)"/>
+<rect x="300" y="148" width="248" height="78" rx="8" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/><rect x="300" y="158" width="5" height="58" rx="2.5" fill="#2E6FE8"/><text x="320" y="174" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#1A2A3A">Fila del Excel</text><text x="320" y="194" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#2E6FE8">fórmula HYPERLINK</text><text x="320" y="211" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7B8794">de ahí salen expediente y URL</text>
+<circle cx="266" cy="187" r="15" fill="#FFFFFF" stroke="#2E6FE8" stroke-width="1.6"/>
+<text x="266" y="191" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#2E6FE8" text-anchor="middle">1</text>
+<rect x="300" y="256" width="248" height="78" rx="8" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/><rect x="300" y="266" width="5" height="58" rx="2.5" fill="#8C4FFF"/><text x="320" y="282" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#1A2A3A">Página del expediente</text><text x="320" y="302" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#8C4FFF">View.ashx → Browse.aspx</text><text x="320" y="319" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7B8794">la tabla ya trae los enlaces</text>
+<circle cx="266" cy="295" r="15" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.6"/>
+<text x="266" y="299" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#8C4FFF" text-anchor="middle">2</text>
+<line x1="548" y1="295" x2="574" y2="295" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="582" y="299" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#C0392B">SIPI caído o sin red → la fila sale con la explicación</text>
+<rect x="300" y="364" width="248" height="78" rx="8" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/><rect x="300" y="374" width="5" height="58" rx="2.5" fill="#8C4FFF"/><text x="320" y="390" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#1A2A3A">Descarga de los PDFs</text><text x="320" y="410" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#8C4FFF">TM9 · TM128 · TM6 · apelación</text><text x="320" y="427" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7B8794">se descartan los anexos</text>
+<circle cx="266" cy="403" r="15" fill="#FFFFFF" stroke="#8C4FFF" stroke-width="1.6"/>
+<text x="266" y="407" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#8C4FFF" text-anchor="middle">3</text>
+<line x1="548" y1="403" x2="574" y2="403" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="582" y="407" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#C0392B">respuesta que no es PDF → se valida por sus bytes, no por el código HTTP</text>
+<rect x="300" y="472" width="248" height="78" rx="8" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/><rect x="300" y="482" width="5" height="58" rx="2.5" fill="#E8770F"/><text x="320" y="498" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#1A2A3A">Texto de la resolución</text><text x="320" y="518" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#E8770F">pypdf + quitar cabeceras</text><text x="320" y="535" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7B8794">todo en una sola línea</text>
+<circle cx="266" cy="511" r="15" fill="#FFFFFF" stroke="#E8770F" stroke-width="1.6"/>
+<text x="266" y="515" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E8770F" text-anchor="middle">4</text>
+<line x1="548" y1="511" x2="574" y2="511" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="582" y="515" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#C0392B">PDF escaneado → se marca para revisar a mano, no hay OCR</text>
+<rect x="300" y="580" width="248" height="78" rx="8" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/><rect x="300" y="590" width="5" height="58" rx="2.5" fill="#E8770F"/><text x="320" y="606" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#1A2A3A">Zona de conclusión</text><text x="320" y="626" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#E8770F">8 000 car. antes de RESUELVE</text><text x="320" y="643" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7B8794">no cuentan los alegatos citados</text>
+<circle cx="266" cy="619" r="15" fill="#FFFFFF" stroke="#E8770F" stroke-width="1.6"/>
+<text x="266" y="623" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E8770F" text-anchor="middle">5</text>
+<line x1="548" y1="619" x2="574" y2="619" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="582" y="623" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#C0392B">sin el marcador → se analiza el documento entero y se avisa</text>
+<rect x="300" y="688" width="248" height="78" rx="8" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/><rect x="300" y="698" width="5" height="58" rx="2.5" fill="#E8770F"/><text x="320" y="714" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#1A2A3A">Motivos y opositores</text><text x="320" y="734" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#E8770F">136a · 136h · …</text><text x="320" y="751" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7B8794">lo negado se descarta y se avisa</text>
+<circle cx="266" cy="727" r="15" fill="#FFFFFF" stroke="#E8770F" stroke-width="1.6"/>
+<text x="266" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#E8770F" text-anchor="middle">6</text>
+<line x1="548" y1="727" x2="574" y2="727" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="582" y="731" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#C0392B">causal no reconocida → fila con MOTIVO vacío y observación</text>
+<rect x="300" y="796" width="248" height="78" rx="8" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/><rect x="300" y="806" width="5" height="58" rx="2.5" fill="#2E8B57"/><text x="320" y="822" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#1A2A3A">N filas de salida</text><text x="320" y="842" font-family="DejaVu Sans, Arial, sans-serif" font-size="11" font-weight="bold" fill="#2E8B57">una por motivo de negación</text><text x="320" y="859" font-family="DejaVu Sans, Arial, sans-serif" font-size="9" fill="#7B8794">el resto se repite en cada fila</text>
+<circle cx="266" cy="835" r="15" fill="#FFFFFF" stroke="#2E8B57" stroke-width="1.6"/>
+<text x="266" y="839" font-family="DejaVu Sans, Arial, sans-serif" font-size="12" font-weight="bold" fill="#2E8B57" text-anchor="middle">7</text>
+<line x1="548" y1="835" x2="574" y2="835" stroke="#C0392B" stroke-width="1.2" stroke-dasharray="4,3"/>
+<text x="582" y="839" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#C0392B">0 motivos → igual sale 1 fila: nunca desaparece un expediente</text>
+<rect x="40" y="916" width="1260" height="70" rx="10" fill="#FFFFFF" stroke="#C7D0DA" stroke-width="1"/>
+<text x="58" y="940" font-family="DejaVu Sans, Arial, sans-serif" font-size="11.5" font-weight="bold" fill="#5E6E7E">Regla que no se rompe nunca</text>
+<text x="58" y="964" font-family="DejaVu Sans, Arial, sans-serif" font-size="10.5" fill="#5E6E7E">Un expediente que falla en cualquier paso sigue apareciendo en el Excel, con las celdas vacías y el motivo del fallo en «Observaciones». Perder una fila en silencio sería el peor error posible: nadie la echaría de menos al revisar.</text>
+</svg>

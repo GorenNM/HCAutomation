@@ -1,0 +1,15 @@
+# Runtime. Versiones exactas: el .exe se reconstruye igual dentro de un año.
+# Ninguna tiene codigo compilado -> el empaquetado no necesita compilador.
+beautifulsoup4==4.15.0
+openpyxl==3.1.5
+pypdf==6.15.0
+requests==2.34.2
+
+# Transitivas, fijadas a proposito.
+certifi==2026.7.22
+charset-normalizer==3.4.9
+et_xmlfile==2.0.0
+idna==3.18
+soupsieve==2.9.1
+typing_extensions==4.16.0
+urllib3==2.7.0

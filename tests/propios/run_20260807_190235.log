@@ -1,0 +1,6 @@
+19:02:35 INFO  Leídas 1 filas de «mini_multimotivo.xlsx» (1 expedientes únicos, 0 avisos)
+19:02:36 INFO  3 documento(s) en https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639217261653119424: TM128, TM6, OTRO
+19:02:37 INFO  SD2022/0097089: descargado SD2022-0097089_TM128.pdf (565 KB)
+19:02:37 INFO  SD2022/0097089: descargado SD2022-0097089_TM6.pdf (201 KB)
+19:02:38 INFO  Escritos 2 registros en C:\Users\femur\ExtraccionSIC\salida\Negacion_marcas_20260807_190238.xlsx
+19:02:38 INFO  Corrida terminada: 1 expedientes, 2 PDFs, 2 registros, 0 errores → C:\Users\femur\ExtraccionSIC\salida\Negacion_marcas_20260807_190238.xlsx

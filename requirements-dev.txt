@@ -1,0 +1,12 @@
+# Solo para desarrollo y construccion. Nada de esto entra en el .exe.
+-r requirements.txt
+
+pytest==8.4.2
+pytest-cov==6.2.1
+hypothesis==6.140.3
+
+# Fijado: cambiar de version de PyInstaller cambia el binario.
+pyinstaller==6.21.0
+
+# Solo para regenerar los diagramas de la documentacion (docs/gen_diagramas.py).
+cairosvg==2.9.0

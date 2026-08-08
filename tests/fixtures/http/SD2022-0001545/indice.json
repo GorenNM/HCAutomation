@@ -1,0 +1,46 @@
+{
+  "case_url": "http://sipi.sic.gov.co/sipi/View.ashx?3857575",
+  "url_final": "https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639216217109952967",
+  "documentos": [
+    {
+      "archivo": "doc01.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=0900000281a0ad4f",
+      "etiqueta": "SD 438 Apelación confirma registro o negación marca lema",
+      "tipo": "APELACION",
+      "content_type": "application/pdf",
+      "bytes": 255397
+    },
+    {
+      "archivo": "doc02.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=09000002818cf77c",
+      "etiqueta": "TM128 - Niega con oposición",
+      "tipo": "TM128",
+      "content_type": "application/pdf",
+      "bytes": 278221
+    },
+    {
+      "archivo": "doc03.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=090000028163dfbc",
+      "etiqueta": "TM6 - Resumen de la Solicitud de Marca",
+      "tipo": "TM6",
+      "content_type": "application/pdf",
+      "bytes": 77717
+    },
+    {
+      "archivo": "doc04.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=090000028163dfbb",
+      "etiqueta": "Poder",
+      "tipo": "OTRO",
+      "content_type": "application/pdf",
+      "bytes": 62741
+    },
+    {
+      "archivo": "doc05.bin",
+      "url": "https://sipi.sic.gov.co/sipi/Common/Utils/GetFile.aspx?&id=090000028163dfba",
+      "etiqueta": "Tipo de Imagen",
+      "tipo": "OTRO",
+      "content_type": "application/pdf",
+      "bytes": 5109
+    }
+  ]
+}

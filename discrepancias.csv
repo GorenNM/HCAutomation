@@ -1,0 +1,296 @@
+expediente,campo,tipo,ref,nuestro,fila_ref,filas_ntro,observaciones
+SD2022-0001545,Apelacion,distinto,NO,SI,"[5, 6]",[5],La resolución dice expresamente que NO está comprendido en 136b: no se cuenta como motivo.
+SD2022-0032729,Apelacion,distinto,NO,SI,[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0040180,Apelacion,distinto,NO,SI,[185],[182],
+SD2022-0049886,Apelacion,distinto,NO,SI,[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0057397,Apelacion,distinto,NO,SI,[291],[284],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0063880,Apelacion,distinto,NO,SI,"[335, 336]",[329],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0070089,Apelacion,distinto,NO,SI,[350],[344],La resolución dice expresamente que NO está comprendido en 135i: no se cuenta como motivo.; La resolución dice expresamente que NO está comprendido en 135j: no se cuenta como motivo.
+SD2022-0083063,Apelacion,distinto,NO,SI,[409],[406],
+SD2022-0117395,Apelacion,distinto,SI,NO,[573],[612],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2023-0007288,Apelacion,distinto,NO,SI,[687],[857],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0005052,Art OP 1,vacio_ref,[],"['135B', '136A']",[13],[12],El nombre del opositor no se pudo leer junto a «presentó oposición»; se tomó de la parte resolutiva.
+SD2022-0009197,Art OP 1,vacio_out,"['135B', '136A']",[],"[28, 29]",[28],No se pudo determinar en qué artículos fundó su oposición «INSTITUTO FARMACOLOGICO BOTANICO S.A.S».
+SD2022-0011050,Art OP 1,vacio_ref,[],['136A'],[43],[42],
+SD2022-0013952,Art OP 1,vacio_out,"['135B', '136A']",[],"[49, 50]",[48],No se pudo determinar en qué artículos fundó su oposición «JUAN SEBASTIAN LIZCANO ROJAS».; No se pudo determinar en qué artículos fundó su oposición «AUTECO MOBILITY S.A.S.».
+SD2022-0016477,Art OP 1,vacio_ref,[],['136A'],[76],[72],
+SD2022-0021577,Art OP 1,vacio_out,"['135B', '136A', '136B']",[],"[94, 95, 96]",[90],No se pudo determinar en qué artículos fundó su oposición «APOTHEKANNA S.A.S.».; La resolución dice expresamente que NO está comprendido en 136b: no se cuenta como motivo.
+SD2022-0028314,Art OP 1,vacio_ref,[],['136A'],[120],[111],
+SD2022-0030179,Art OP 1,vacio_out,['136A'],[],[134],[125],No se pudo determinar en qué artículos fundó su oposición «scoiedad Ipsen Consumer HealthCare».
+SD2022-0032729,Art OP 1,vacio_out,['136A'],[],[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0035349,Art OP 1,disjunto,['7CONVENCIONINTERAMERICANAWASHINGTON'],['7'],[168],[164],
+SD2022-0037737,Art OP 1,vacio_ref,[],['136A'],[152],[147],
+SD2022-0038666,Art OP 1,vacio_ref,[],['136A'],[182],[178],
+SD2022-0040933,Art OP 1,vacio_out,['136A'],[],[198],[195],No se pudo determinar en qué artículos fundó su oposición «SIEGFRIED RHEIN S.A. DE C.V.».
+SD2022-0045634,Art OP 1,vacio_out,['136A'],[],[216],[213],No se pudo determinar en qué artículos fundó su oposición «BIOCHEM FARMACEUTICA DE COLOMBIA S.A».
+SD2022-0049055,Art OP 1,subconjunto,"['135B', '136A']",['135B'],"[237, 238]",[235],
+SD2022-0049886,Art OP 1,vacio_out,['136A'],[],[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0051411,Art OP 1,vacio_out,"['135B', '136A']",[],"[253, 254]",[250],No se pudo determinar en qué artículos fundó su oposición «LOVIENT CONSULTADORIA E SERVICOS LDA.».
+SD2022-0051416,Art OP 1,vacio_out,"['135B', '136A']",[],"[255, 256]",[251],No se pudo determinar en qué artículos fundó su oposición «LOVIENT CONSULTADORIA E SERVICOS LDA.».
+SD2022-0054153,Art OP 1,vacio_out,"['135B', '136A']",[],"[273, 274]",[267],No se pudo determinar en qué artículos fundó su oposición «LABORATORIOS INCOBRA S.A.».
+SD2022-0054710,Art OP 1,vacio_out,"['135B', '136A']",[],"[271, 272]",[266],No se pudo determinar en qué artículos fundó su oposición «Catalunya Trust».
+SD2022-0056071,Art OP 1,vacio_out,['135B'],[],[285],"[278, 279]",el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0056830,Art OP 1,vacio_ref,[],['136A'],[288],[282],
+SD2022-0057397,Art OP 1,vacio_out,['136A'],[],[291],[284],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0060997,Art OP 1,vacio_out,['136A'],[],[305],[299],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0063014,Art OP 1,vacio_out,"['135B', '136A']",[],"[321, 322]",[315],No se pudo determinar en qué artículos fundó su oposición «opositora COLINAGRO S.A.».
+SD2022-0063180,Art OP 1,subconjunto,"['135B', '136A']",['135B'],"[323, 324]",[316],
+SD2022-0063184,Art OP 1,subconjunto,"['135B', '136A']",['135B'],"[325, 326]",[317],
+SD2022-0063880,Art OP 1,vacio_out,['136A'],[],"[335, 336]",[329],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0070089,Art OP 1,vacio_ref,[],"['135I', '135J']",[350],[344],La resolución dice expresamente que NO está comprendido en 135i: no se cuenta como motivo.; La resolución dice expresamente que NO está comprendido en 135j: no se cuenta como motivo.
+SD2022-0071491,Art OP 1,vacio_out,['136A'],[],[364],[360],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0071599,Art OP 1,vacio_out,['136A'],[],[367],[363],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0072019,Art OP 1,vacio_out,['136A'],[],[370],[366],No se pudo determinar en qué artículos fundó su oposición «MANUELA GOMEZ OSPINA».
+SD2022-0073928,Art OP 1,vacio_out,['136A'],[],[387],[381],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0076355,Art OP 1,disjunto,['136B'],['136A'],[393],[390],No se pudo determinar la naturaleza de la marca.
+SD2022-0078993,Art OP 1,vacio_out,['136A'],[],[405],[402],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0082384,Art OP 1,vacio_out,['136A'],[],[413],[410],No se pudo determinar en qué artículos fundó su oposición «SOCIETE DES PRODUITS NESTLE SA».
+SD2022-0084599,Art OP 1,vacio_out,['136A'],[],[422],[422],No se pudo determinar en qué artículos fundó su oposición «LABORATORIOS PROVET S.A.S.».
+SD2022-0088652,Art OP 1,vacio_out,['136A'],[],[439],[442],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0093178,Art OP 1,vacio_ref,[],['136A'],[462],[471],
+SD2022-0097089,Art OP 1,superconjunto,['136A'],"['136A', '136H']",[472],"[484, 485]",
+SD2022-0099424,Art OP 1,vacio_out,"['136A', '136H']",[],"[491, 492]","[509, 510]",No se pudo determinar en qué artículos fundó su oposición «RED BULL GMBH».
+SD2022-0099426,Art OP 1,vacio_out,"['136A', '136H']",[],"[493, 494]","[511, 512]",No se pudo determinar en qué artículos fundó su oposición «RED BULL GMBH».
+SD2022-0099429,Art OP 1,vacio_out,"['136A', '136H']",[],"[495, 496]","[513, 514]",No se pudo determinar en qué artículos fundó su oposición «RED BULL GMBH».
+SD2022-0099978,Art OP 1,vacio_out,"['135B', '136A']",[],"[500, 501]",[518],No se pudo determinar en qué artículos fundó su oposición «MEDICARTE S.A.».
+SD2022-0101828,Art OP 1,subconjunto,"['136A', '147']",['136A'],"[508, 509]",[525],
+SD2022-0102876,Art OP 1,subconjunto,"['135B', '136A']",['135B'],"[519, 520]",[535],La resolución dice expresamente que NO está comprendido en 136a: no se cuenta como motivo.; La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0106249,Art OP 1,vacio_out,['136A'],[],[535],"[552, 553]",No se pudo determinar en qué artículos fundó su oposición «RED BULL GMBH».
+SD2022-0112996,Art OP 1,vacio_out,"['136A', '137']",[],"[560, 561]",[594],No se pudo determinar en qué artículos fundó su oposición «SANNUS FOODS SAS».; La resolución dice expresamente que NO está comprendido en 137: no se cuenta como motivo.
+SD2022-0119945,Art OP 1,vacio_ref,[],['136A'],[572],[610],
+SD2022-0120935,Art OP 1,vacio_out,['136A'],[],[586],[636],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0121568,Art OP 1,vacio_out,['136A'],[],[588],[643],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0127575,Art OP 1,vacio_out,"['136D', '147']",[],"[618, 619]",[694],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0133969,Art OP 1,vacio_out,"['136A', '136B']",[],"[640, 641]",[742],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0139172,Art OP 1,vacio_out,['136A'],[],[666],[786],No se pudo determinar en qué artículos fundó su oposición «ALEJANDRO LÓPEZ TELLO CUÉLLAR».
+SD2022-0140186,Art OP 1,vacio_out,['136A'],[],[667],[793],No se pudo determinar en qué artículos fundó su oposición «LABORATORIOS MEREY SAS.».
+SD2023-0007288,Art OP 1,vacio_out,['136A'],[],[687],[857],no se descargó ninguna resolución (TM9 / TM128)
+SD2023-0039419,Art OP 1,vacio_out,['135B'],[],[696],[932],"No se pudo determinar la naturaleza de la marca.; No se pudo determinar en qué artículos fundó su oposición «Sanfer Farma, S.A.P.I. de C.V.»."
+SD2022-0013952,Art Opositor 2,vacio_out,['136A'],[],"[49, 50]",[48],No se pudo determinar en qué artículos fundó su oposición «JUAN SEBASTIAN LIZCANO ROJAS».; No se pudo determinar en qué artículos fundó su oposición «AUTECO MOBILITY S.A.S.».
+SD2022-0032729,Art Opositor 2,vacio_out,['136A'],[],[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0042747,Art Opositor 2,subconjunto,"['135A', '135B', '136A']","['135A', '135B']","[203, 204, 205]",[202],
+SD2022-0049886,Art Opositor 2,vacio_out,['136A'],[],[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0050747,Art Opositor 2,vacio_ref,[],['136A'],[249],[246],No se encontró si la oposición de «PROCAPS S.A.» fue fundada.
+SD2022-0051532,Art Opositor 2,vacio_ref,[],['136A'],[257],[252],No se encontró si la oposición de «PROCAPS S.A.» fue fundada.
+SD2022-0097089,Art Opositor 2,vacio_ref,[],['136A'],[472],"[484, 485]",
+SD2022-0108406,Art Opositor 2,vacio_ref,[],['136A'],[545],[569],
+SD2022-0115921,Art Opositor 2,vacio_ref,[],['136A'],"[569, 570]",[605],"«Declarar fundada» menciona a «contra la solicitud de registro en la Clase 3 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 3 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Mi Piel S.A.S.» fue fundada.; No se encontró si la oposición de «Medipiel S.A.S.» fue fundada."
+SD2022-0131173,Art Opositor 2,vacio_ref,[],['136A'],[630],[710],
+SD2022-0135458,Art Opositor 2,vacio_ref,[],"['135B', '135E', '135I']",[643],[745],"«Declarar infundada» menciona a «contra la solicitud de registro en la Clase 1 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «contra la solicitud de registro en la Clase 1 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Corporación de Ferias y Exposiciones S.A. Usuario Operador de Zona Franca Beneficio e Interés Colectivo» fue fundada.; No se encontró si la oposición de «Incubadora Santander S.A.» fue fundada."
+SD2022-0013705,Conjunto MOTIVOS,vacio_out,['135B'],[],[66],[64],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0015309,Conjunto MOTIVOS,subconjunto,"['136A', '136H']",['136A'],"[70, 71]",[68],
+SD2022-0017300,Conjunto MOTIVOS,disjunto,['136A'],['136'],[82],[78],
+SD2022-0026819,Conjunto MOTIVOS,vacio_out,['136A'],[],[117],[108],No se pudo determinar en qué artículos fundó su oposición «FRANQUICIAS Y CONCESIONES S A S FRAYCO S.A.S.».; La resolución dice expresamente que NO está comprendido en 136h: no se cuenta como motivo.; La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0032729,Conjunto MOTIVOS,vacio_out,['136A'],[],[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0035349,Conjunto MOTIVOS,disjunto,['7CONVENCIONINTERAMERICANAWASHINGTON'],['7'],[168],[164],
+SD2022-0037286,Conjunto MOTIVOS,vacio_out,['136A'],[],[177],[173],"Error de red al pedir https://sipi.sic.gov.co/sipi/View.ashx?4125793: (""Connection broken: ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None)"", ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))"
+SD2022-0037296,Conjunto MOTIVOS,vacio_out,['136A'],[],[178],[174],"Error de red al pedir https://sipi.sic.gov.co/sipi/View.ashx?4125834: (""Connection broken: ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None)"", ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))"
+SD2022-0040364,Conjunto MOTIVOS,vacio_out,['135E'],[],[188],[185],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0040798,Conjunto MOTIVOS,vacio_out,['136A'],[],[193],[190],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0049886,Conjunto MOTIVOS,vacio_out,['136A'],[],[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0051988,Conjunto MOTIVOS,vacio_out,['136A'],[],[259],[254],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0052369,Conjunto MOTIVOS,disjunto,['136A'],['136'],[258],[253],
+SD2022-0055381,Conjunto MOTIVOS,disjunto,['135B'],['136E'],[284],[277],
+SD2022-0057397,Conjunto MOTIVOS,vacio_out,['136A'],[],[291],[284],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0063014,Conjunto MOTIVOS,disjunto,['136B'],['136A'],"[321, 322]",[315],No se pudo determinar en qué artículos fundó su oposición «opositora COLINAGRO S.A.».
+SD2022-0063488,Conjunto MOTIVOS,vacio_out,['136A'],[],[330],[321],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0063880,Conjunto MOTIVOS,vacio_out,['136A'],[],"[335, 336]",[329],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0069292,Conjunto MOTIVOS,vacio_out,['136A'],[],[358],[354],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0070593,Conjunto MOTIVOS,vacio_out,['136A'],[],[361],[357],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0073513,Conjunto MOTIVOS,subconjunto,"['136A', '136H']",['136A'],"[381, 382, 383]",[377],
+SD2022-0073928,Conjunto MOTIVOS,vacio_out,['136A'],[],[387],[381],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0083067,Conjunto MOTIVOS,vacio_out,['136A'],[],[419],[417],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0088652,Conjunto MOTIVOS,vacio_out,['136A'],[],[439],[442],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0092376,Conjunto MOTIVOS,vacio_out,['136A'],[],[457],[466],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0096590,Conjunto MOTIVOS,vacio_out,"['154', '172']",[],[471],[483],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0098060,Conjunto MOTIVOS,vacio_out,['136A'],[],[483],[497],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0098168,Conjunto MOTIVOS,subconjunto,"['136A', '136C']",['136A'],[484],[498],La resolución dice expresamente que NO está comprendido en 136c: no se cuenta como motivo.
+SD2022-0102876,Conjunto MOTIVOS,vacio_out,"['136A', '147']",[],"[519, 520]",[535],La resolución dice expresamente que NO está comprendido en 136a: no se cuenta como motivo.; La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0105929,Conjunto MOTIVOS,vacio_out,['136A'],[],[531],[548],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0109757,Conjunto MOTIVOS,superconjunto,['136A'],"['135B', '136A']",[549],"[573, 574]",
+SD2022-0117395,Conjunto MOTIVOS,vacio_out,['136A'],[],[573],[612],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0120301,Conjunto MOTIVOS,vacio_out,['136A'],[],[583],[632],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0122632,Conjunto MOTIVOS,vacio_out,['136A'],[],[592],[649],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0122767,Conjunto MOTIVOS,vacio_out,['136A'],[],[595],[655],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0123727,Conjunto MOTIVOS,vacio_out,['136A'],[],[574],[614],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0124584,Conjunto MOTIVOS,vacio_out,['136A'],[],[606],[675],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0127575,Conjunto MOTIVOS,subconjunto,"['136A', '136D']",['136A'],"[618, 619]",[694],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2023-0007288,Conjunto MOTIVOS,vacio_out,['136A'],[],[687],[857],no se descargó ninguna resolución (TM9 / TM128)
+SD2023-0016837,Conjunto MOTIVOS,vacio_out,['136A'],[],[695],[899],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0001545,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[5, 6]",[5],La resolución dice expresamente que NO está comprendido en 136b: no se cuenta como motivo.
+SD2022-0004420,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[15, 16]",[14],
+SD2022-0005052,Fundada OP 1,vacio_ref,[],['NO'],[13],[12],El nombre del opositor no se pudo leer junto a «presentó oposición»; se tomó de la parte resolutiva.
+SD2022-0009197,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[28, 29]",[28],No se pudo determinar en qué artículos fundó su oposición «INSTITUTO FARMACOLOGICO BOTANICO S.A.S».
+SD2022-0011050,Fundada OP 1,vacio_ref,[],['SI'],[43],[42],
+SD2022-0013952,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[49, 50]",[48],No se pudo determinar en qué artículos fundó su oposición «JUAN SEBASTIAN LIZCANO ROJAS».; No se pudo determinar en qué artículos fundó su oposición «AUTECO MOBILITY S.A.S.».
+SD2022-0016010,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[74, 75]",[71],La resolución dice expresamente que NO está comprendido en 136h: no se cuenta como motivo.
+SD2022-0016477,Fundada OP 1,vacio_ref,[],['NO'],[76],[72],
+SD2022-0023110,Fundada OP 1,vacio_out,['NO'],[],"[105, 106]",[99],"«Declarar infundada» menciona a «presentada contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «presentada contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «presentada contra la solicitud de registro en la Clase 32 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «presentada contra la solicitud de registro en la Clase 33 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Aditivos y Quimicos S.A.S Adiquim S.A.S.» fue fundada.; No se encontró si la oposición de «Sanadores Ambientales Sanam Company S.A.S.» fue fundada."
+SD2022-0026026,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[112, 113]",[104],
+SD2022-0026819,Fundada OP 1,vacio_ref,[],['NO'],[117],[108],No se pudo determinar en qué artículos fundó su oposición «FRANQUICIAS Y CONCESIONES S A S FRAYCO S.A.S.».; La resolución dice expresamente que NO está comprendido en 136h: no se cuenta como motivo.; La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0028314,Fundada OP 1,vacio_ref,[],['NO'],[120],[111],
+SD2022-0032729,Fundada OP 1,vacio_out,['SI'],[],[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0037737,Fundada OP 1,vacio_ref,[],['NO'],[152],[147],
+SD2022-0038666,Fundada OP 1,vacio_ref,[],['NO'],[182],[178],
+SD2022-0049055,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[237, 238]",[235],
+SD2022-0049886,Fundada OP 1,vacio_out,['SI'],[],[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0050235,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[235, 236]",[234],La resolución dice expresamente que NO está comprendido en 136a: no se cuenta como motivo.
+SD2022-0051411,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[253, 254]",[250],No se pudo determinar en qué artículos fundó su oposición «LOVIENT CONSULTADORIA E SERVICOS LDA.».
+SD2022-0051416,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[255, 256]",[251],No se pudo determinar en qué artículos fundó su oposición «LOVIENT CONSULTADORIA E SERVICOS LDA.».
+SD2022-0054153,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[273, 274]",[267],No se pudo determinar en qué artículos fundó su oposición «LABORATORIOS INCOBRA S.A.».
+SD2022-0054710,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[271, 272]",[266],No se pudo determinar en qué artículos fundó su oposición «Catalunya Trust».
+SD2022-0056071,Fundada OP 1,vacio_out,['SI'],[],[285],"[278, 279]",el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0056383,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[286, 287]",[280],
+SD2022-0056830,Fundada OP 1,vacio_ref,[],['SI'],[288],[282],
+SD2022-0057103,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[289, 290]",[283],
+SD2022-0057397,Fundada OP 1,vacio_out,['SI'],[],[291],[284],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0060997,Fundada OP 1,vacio_out,['SI'],[],[305],[299],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0063180,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[323, 324]",[316],
+SD2022-0063184,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[325, 326]",[317],
+SD2022-0063880,Fundada OP 1,vacio_out,"['NO', 'SI']",[],"[335, 336]",[329],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0070089,Fundada OP 1,vacio_ref,[],['NO'],[350],[344],La resolución dice expresamente que NO está comprendido en 135i: no se cuenta como motivo.; La resolución dice expresamente que NO está comprendido en 135j: no se cuenta como motivo.
+SD2022-0071491,Fundada OP 1,vacio_out,['SI'],[],[364],[360],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0071599,Fundada OP 1,vacio_out,['SI'],[],[367],[363],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0073928,Fundada OP 1,vacio_out,['NO'],[],[387],[381],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0078993,Fundada OP 1,vacio_out,['SI'],[],[405],[402],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0088652,Fundada OP 1,vacio_out,['NO'],[],[439],[442],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0093178,Fundada OP 1,vacio_ref,[],['SI'],[462],[471],
+SD2022-0102876,Fundada OP 1,subconjunto,"['NO', 'SI']",['SI'],"[519, 520]",[535],La resolución dice expresamente que NO está comprendido en 136a: no se cuenta como motivo.; La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0106256,Fundada OP 1,vacio_ref,[],['SI'],[536],"[556, 557]",No se pudo determinar en qué artículos fundó su oposición «RED BULL GMBH».
+SD2022-0115921,Fundada OP 1,vacio_out,"['NO', 'SI']",[],"[569, 570]",[605],"«Declarar fundada» menciona a «contra la solicitud de registro en la Clase 3 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 3 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Mi Piel S.A.S.» fue fundada.; No se encontró si la oposición de «Medipiel S.A.S.» fue fundada."
+SD2022-0119945,Fundada OP 1,vacio_ref,[],['NO'],[572],[610],
+SD2022-0120935,Fundada OP 1,vacio_out,['SI'],[],[586],[636],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0121568,Fundada OP 1,vacio_out,['SI'],[],[588],[643],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0127575,Fundada OP 1,vacio_out,['SI'],[],"[618, 619]",[694],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0133969,Fundada OP 1,vacio_out,['SI'],[],"[640, 641]",[742],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0135458,Fundada OP 1,vacio_out,['NO'],[],[643],[745],"«Declarar infundada» menciona a «contra la solicitud de registro en la Clase 1 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «contra la solicitud de registro en la Clase 1 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Corporación de Ferias y Exposiciones S.A. Usuario Operador de Zona Franca Beneficio e Interés Colectivo» fue fundada.; No se encontró si la oposición de «Incubadora Santander S.A.» fue fundada."
+SD2023-0007288,Fundada OP 1,vacio_out,['SI'],[],[687],[857],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0023110,Fundada OP 2,vacio_out,"['NO', 'SI']",[],"[105, 106]",[99],"«Declarar infundada» menciona a «presentada contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «presentada contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «presentada contra la solicitud de registro en la Clase 32 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «presentada contra la solicitud de registro en la Clase 33 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Aditivos y Quimicos S.A.S Adiquim S.A.S.» fue fundada.; No se encontró si la oposición de «Sanadores Ambientales Sanam Company S.A.S.» fue fundada."
+SD2022-0032729,Fundada OP 2,vacio_out,['NO'],[],[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0049886,Fundada OP 2,vacio_out,['NO'],[],[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0076944,Fundada OP 2,vacio_out,['NO'],[],[394],[391],"«Declarar infundada» menciona a «parte del P.A. Exito Signos Distintivos - Administrado por Fiduciaria Bancolombia S.A.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «P.A. Exito Signos Distintivos - Administrado por Fiduciaria Bancolombia S.A.» fue fundada."
+SD2022-0097089,Fundada OP 2,vacio_ref,[],['SI'],[472],"[484, 485]",
+SD2022-0108406,Fundada OP 2,vacio_ref,[],['SI'],[545],[569],
+SD2022-0131173,Fundada OP 2,vacio_ref,[],['NO'],[630],[710],
+SD2022-0006024,Naturaleza,vacio_out,FIGURATIVA,,[18],[16],No se pudo determinar la naturaleza de la marca.
+SD2022-0032729,Naturaleza,vacio_out,MIXTA,,[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0037286,Naturaleza,vacio_out,NOMINATIVA,,[177],[173],"Error de red al pedir https://sipi.sic.gov.co/sipi/View.ashx?4125793: (""Connection broken: ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None)"", ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))"
+SD2022-0037296,Naturaleza,vacio_out,NOMINATIVA,,[178],[174],"Error de red al pedir https://sipi.sic.gov.co/sipi/View.ashx?4125834: (""Connection broken: ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None)"", ConnectionResetError(10054, 'Se ha forzado la interrupción de una conexión existente por el host remoto', None, 10054, None))"
+SD2022-0039034,Naturaleza,vacio_out,MIXTA,,[180],[176],No se pudo determinar la naturaleza de la marca.
+SD2022-0039527,Naturaleza,vacio_out,NOMINATIVA,,[183],[179],No se pudo determinar la naturaleza de la marca.
+SD2022-0046692,Naturaleza,vacio_out,3D,,[222],[219],No se pudo determinar la naturaleza de la marca.
+SD2022-0049859,Naturaleza,vacio_out,MIXTA,,[244],[241],No se pudo determinar la naturaleza de la marca.
+SD2022-0049886,Naturaleza,vacio_out,MIXTA,,[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0054653,Naturaleza,vacio_out,NOMINATIVA,,[281],[274],No se pudo determinar la naturaleza de la marca.
+SD2022-0057397,Naturaleza,vacio_out,MIXTA,,[291],[284],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0062560,Naturaleza,vacio_out,MIXTA,,[277],[270],No se pudo determinar la naturaleza de la marca.
+SD2022-0062590,Naturaleza,vacio_out,MIXTA,,[314],[308],No se pudo determinar la naturaleza de la marca.
+SD2022-0063880,Naturaleza,vacio_out,NOMINATIVA,,"[335, 336]",[329],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0066149,Naturaleza,vacio_out,NOMINATIVA,,[346],[339],No se pudo determinar la naturaleza de la marca.
+SD2022-0069707,Naturaleza,distinto,FIGURATIVA,MIXTA,[357],[353],
+SD2022-0073928,Naturaleza,vacio_out,NOMINATIVA,,[387],[381],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0076355,Naturaleza,vacio_out,MIXTA,,[393],[390],No se pudo determinar la naturaleza de la marca.
+SD2022-0078254,Naturaleza,vacio_out,NOMINATIVA,,[403],[400],No se pudo determinar la naturaleza de la marca.
+SD2022-0087123,Naturaleza,vacio_out,MIXTA,,[430],[433],No se pudo determinar la naturaleza de la marca.
+SD2022-0087800,Naturaleza,vacio_out,NOMINATIVA,,[435],[438],No se pudo determinar la naturaleza de la marca.
+SD2022-0088652,Naturaleza,vacio_out,NOMINATIVA,,[439],[442],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0089143,Naturaleza,vacio_out,MIXTA,,[441],[444],No se pudo determinar la naturaleza de la marca.
+SD2022-0102917,Naturaleza,vacio_out,NOMINATIVA,,[524],[539],No se pudo determinar la naturaleza de la marca.
+SD2022-0102921,Naturaleza,vacio_out,NOMINATIVA,,[525],[540],No se pudo determinar la naturaleza de la marca.
+SD2022-0115370,Naturaleza,vacio_out,NOMINATIVA,,[568],[603],No se pudo determinar la naturaleza de la marca.
+SD2022-0119527,Naturaleza,vacio_out,MIXTA,,[581],[628],No se pudo determinar la naturaleza de la marca.
+SD2022-0122632,Naturaleza,distinto,NOMINATIVA,MIXTA,[592],[649],La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0124049,Naturaleza,vacio_out,FIGURATIVA,,[600],[665],No se pudo determinar la naturaleza de la marca.
+SD2022-0124518,Naturaleza,vacio_out,NOMINATIVA,,[605],[673],No se pudo determinar la naturaleza de la marca.
+SD2022-0138149,Naturaleza,vacio_out,NOMINATIVA,,[652],[760],No se pudo determinar la naturaleza de la marca.
+SD2022-0138714,Naturaleza,vacio_out,NOMINATIVA,,[658],[771],No se pudo determinar la naturaleza de la marca.
+SD2023-0002117,Naturaleza,vacio_out,NOMINATIVA,,[682],[841],No se pudo determinar la naturaleza de la marca.
+SD2023-0007288,Naturaleza,vacio_out,MIXTA,,[687],[857],no se descargó ninguna resolución (TM9 / TM128)
+SD2023-0014449,Naturaleza,distinto,NOMINATIVA,MIXTA,[691],[884],
+SD2023-0039419,Naturaleza,vacio_out,MIXTA,,[696],[932],"No se pudo determinar la naturaleza de la marca.; No se pudo determinar en qué artículos fundó su oposición «Sanfer Farma, S.A.P.I. de C.V.»."
+SD2022-0005052,Opositor 1,vacio_ref,,MARYCOLOR S.A.S,[13],[12],El nombre del opositor no se pudo leer junto a «presentó oposición»; se tomó de la parte resolutiva.
+SD2022-0009197,Opositor 1,distinto,LABORATORIOS NATURAL FRESHLY INFABO S A.S INSTITUTO FARMACOLOGICO BOTANICO S.A.S,INSTITUTO FARMACOLOGICO BOTANICO S.A.S,"[28, 29]",[28],No se pudo determinar en qué artículos fundó su oposición «INSTITUTO FARMACOLOGICO BOTANICO S.A.S».
+SD2022-0011050,Opositor 1,vacio_ref,,CAPINEL S.A,[43],[42],
+SD2022-0016477,Opositor 1,vacio_ref,,AI INVERSIONES PALO ALTO II S.A.C,[76],[72],
+SD2022-0022888,Opositor 1,distinto,RED BULL GMBH,RED BULL GMBH - TRADEMARK DEPARTMENT,"[103, 104]","[97, 98]",
+SD2022-0026026,Opositor 1,distinto,LABORATORIOS INCOBRA,LABORATORIOS INCOBRA S.A,"[112, 113]",[104],
+SD2022-0026819,Opositor 1,vacio_ref,,FRANQUICIAS Y CONCESIONES S A S FRAYCO S.A.S,[117],[108],No se pudo determinar en qué artículos fundó su oposición «FRANQUICIAS Y CONCESIONES S A S FRAYCO S.A.S.».; La resolución dice expresamente que NO está comprendido en 136h: no se cuenta como motivo.; La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0028314,Opositor 1,vacio_ref,,JOHN FREDY VELASQUEZ VALLEJO,[120],[111],
+SD2022-0030179,Opositor 1,distinto,IPSEN CONSUMER HEALTHCARE,SCOIEDAD IPSEN CONSUMER HEALTHCARE,[134],[125],No se pudo determinar en qué artículos fundó su oposición «scoiedad Ipsen Consumer HealthCare».
+SD2022-0032729,Opositor 1,vacio_out,"4LIFE TRADEMARKS, LLC",,[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0037737,Opositor 1,vacio_ref,,LEVISTRAUS [&] CO,[152],[147],
+SD2022-0038666,Opositor 1,vacio_ref,,LEVISTRAUS [&] CO,[182],[178],
+SD2022-0046452,Opositor 1,distinto,HEALTHY AMERICA COLOMBIA S.A.S,HEALTHY AMERICA COLOBIA S.A.S,[220],[217],
+SD2022-0049886,Opositor 1,vacio_out,RICHARD SEGUNDO CASTIBLANCO GOMEZ,,[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0054153,Opositor 1,distinto,LABORATORIOS INCOBRA,LABORATORIOS INCOBRA S.A,"[273, 274]",[267],No se pudo determinar en qué artículos fundó su oposición «LABORATORIOS INCOBRA S.A.».
+SD2022-0054172,Opositor 1,distinto,LABORATORIOS DERMANAT SAS S.A.S,LABORATORIOS DERMANAT SAS,[275],[268],
+SD2022-0054710,Opositor 1,distinto,CATALUNYA TRUST S.A.S,CATALUNYA TRUST,"[271, 272]",[266],No se pudo determinar en qué artículos fundó su oposición «Catalunya Trust».
+SD2022-0056071,Opositor 1,vacio_out,INDUSTRIA DE ALIMENTOS EL MANA S.A.S,,[285],"[278, 279]",el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0056830,Opositor 1,vacio_ref,,NATALIA MARIA VELEZ GUTIERREZ,[288],[282],
+SD2022-0057397,Opositor 1,vacio_out,PREMEX INC,,[291],[284],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0060997,Opositor 1,vacio_out,MEYER PRODUCTOS TERAPEUTICOS S.A,,[305],[299],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0063014,Opositor 1,distinto,COLINAGRO S.A,OPOSITORA COLINAGRO S.A,"[321, 322]",[315],No se pudo determinar en qué artículos fundó su oposición «opositora COLINAGRO S.A.».
+SD2022-0063880,Opositor 1,vacio_out,"TRADE CORPORATION INTERNATIONAL, S.A. -SOCIEDAD UNIPERSONAL",,"[335, 336]",[329],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0063977,Opositor 1,distinto,LABORATORIOS INCOBRA,LABORATORIOS INCOBRA S.A,"[339, 340]",[332],
+SD2022-0069292,Opositor 1,distinto,LG PHARMA CIA LTDA,PRODUCTOS COMPRENDIDOS EN LA CLASE 5 DE LA CLASIFICACION INTERNACIONAL DE NIZA1. QUE PUBLICADO EN LA GACETA DE PROPIEDAD INDUSTRIAL NO. 976 LG PHARMA CIA LTDA,[358],[354],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0070089,Opositor 1,vacio_ref,,FEDERACION NACIONAL DE CAFETEROS DE COLOMBIA,[350],[344],La resolución dice expresamente que NO está comprendido en 135i: no se cuenta como motivo.; La resolución dice expresamente que NO está comprendido en 135j: no se cuenta como motivo.
+SD2022-0071491,Opositor 1,vacio_out,SIEGFRIED RHEIN S.A. DE C.V,,[364],[360],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0071599,Opositor 1,vacio_out,LG PHARMA CIA LTDA,,[367],[363],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0073928,Opositor 1,vacio_out,GENBIE S.A.S,,[387],[381],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0078993,Opositor 1,vacio_out,ROYAL CANIN SAS,,[405],[402],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0082384,Opositor 1,distinto,SOCIETE DES PRODUITS NESTLE S.A,SOCIETE DES PRODUITS NESTLE SA,[413],[410],No se pudo determinar en qué artículos fundó su oposición «SOCIETE DES PRODUITS NESTLE SA».
+SD2022-0088652,Opositor 1,vacio_out,LABORATORIOS CALIER DE LOS ANDES S.A.S,,[439],[442],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0089426,Opositor 1,distinto,LABORATORIOS INCOBRA,LABORATORIOS INCOBRA S.A,[442],[445],
+SD2022-0093178,Opositor 1,vacio_ref,,HARINERA DEL VALLE S.A,[462],[471],
+SD2022-0096500,Opositor 1,distinto,"GUANGZHOU DECHENG BIOTECHNOLOGY CO., LTD",LTD,[470],[482],
+SD2022-0097089,Opositor 1,distinto,KRAFT FOODS SCHWEIZ HOLDING GMBH,SOCIETE DES PRODUITS NESTLE SA,[472],"[484, 485]",
+SD2022-0106256,Opositor 1,vacio_ref,,RED BULL GMBH,[536],"[556, 557]",No se pudo determinar en qué artículos fundó su oposición «RED BULL GMBH».
+SD2022-0119945,Opositor 1,vacio_ref,,JETHARAM NEMARAM GEHLOT,[572],[610],
+SD2022-0120301,Opositor 1,distinto,FARMEX S.A,TINGUIR PRODUCTOS COMPRENDIDOS EN LA CLASE 5 DE LA CLASIFICACION INTERNACIONAL DE NIZA1. QUE PUBLICADO EN LA GACETA DE PROPIEDAD INDUSTRIAL NO. 989 FARMEX S.A,[583],[632],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0120935,Opositor 1,vacio_out,LABORATORIOS OSA,,[586],[636],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0121568,Opositor 1,vacio_out,LABORATORIOS INCOBRA,,[588],[643],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0122767,Opositor 1,distinto,BIOSIDUS S.A,NGUIR PRODUCTOS COMPRENDIDOS EN LA CLASE 5 DE LA CLASIFICACION INTERNACIONAL DE NIZA1. QUE PUBLICADO EN LA GACETA DE PROPIEDAD INDUSTRIAL NO. 987 BIOSIDUS S.A,[595],[655],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0124584,Opositor 1,distinto,HANSEANDINA DEUTSCHLAND GMBH,COMPRENDIDOS EN LA CLASE 5 DE LA CLASIFICACION INTERNACIONAL DE NIZA1. QUE PUBLICADO EN LA GACETA DE PROPIEDAD INDUSTRIAL NO. 988 HANSEANDINA DEUTSCHLAND GMBH,[606],[675],La resolución niega el registro pero no se pudo determinar la causal. Se analizaron: 136a. Revisar a mano.
+SD2022-0127575,Opositor 1,vacio_out,"JAPAN BIO PRODUCTS CO., LTD",,"[618, 619]",[694],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0131173,Opositor 1,distinto,SOCIETE DES PRODUITS NESTLE S.A,ALIMENTOS CONCENTRADOS NUTRIHEN S.A.S,[630],[710],
+SD2022-0133969,Opositor 1,vacio_out,AVALON PHARMACEUTICAL S.A,,"[640, 641]",[742],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0140186,Opositor 1,distinto,LABORATORIOS MEREY,LABORATORIOS MEREY SAS,[667],[793],No se pudo determinar en qué artículos fundó su oposición «LABORATORIOS MEREY SAS.».
+SD2023-0007288,Opositor 1,vacio_out,LABORATORIOS NATURAL FRESHLY INFABO S A.S INSTITUTO FARMACOLOGICO BOTANICO S.A.S,,[687],[857],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0032729,Opositor 2,vacio_out,NOVAMED S.A.S,,[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0042747,Opositor 2,distinto,LABORATORIOS INCOBRA,LABORATORIOS INCOBRA S.A,"[203, 204, 205]",[202],
+SD2022-0049886,Opositor 2,vacio_out,ENERGY BEVERAGES LLC,,[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0050747,Opositor 2,vacio_ref,,PROCAPS S.A,[249],[246],No se encontró si la oposición de «PROCAPS S.A.» fue fundada.
+SD2022-0051532,Opositor 2,vacio_ref,,PROCAPS S.A,[257],[252],No se encontró si la oposición de «PROCAPS S.A.» fue fundada.
+SD2022-0097089,Opositor 2,vacio_ref,,KRAFT FOODS SCHWEIZ HOLDING GMBH,[472],"[484, 485]",
+SD2022-0108406,Opositor 2,vacio_ref,,HUVEPHARMA EOOD,[545],[569],
+SD2022-0115921,Opositor 2,vacio_ref,,MEDIPIEL S.A.S,"[569, 570]",[605],"«Declarar fundada» menciona a «contra la solicitud de registro en la Clase 3 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 3 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Mi Piel S.A.S.» fue fundada.; No se encontró si la oposición de «Medipiel S.A.S.» fue fundada."
+SD2022-0131173,Opositor 2,vacio_ref,,SOCIETE DES PRODUITS NESTLE S.A,[630],[710],
+SD2022-0135458,Opositor 2,vacio_ref,,INCUBADORA SANTANDER S.A,[643],[745],"«Declarar infundada» menciona a «contra la solicitud de registro en la Clase 1 Internacional.», que no coincide con ningún opositor detectado.; «Declarar infundada» menciona a «contra la solicitud de registro en la Clase 5 Internacional.», que no coincide con ningún opositor detectado.; «Declarar fundada» menciona a «contra la solicitud de registro en la Clase 1 Internacional.», que no coincide con ningún opositor detectado.; No se encontró si la oposición de «Corporación de Ferias y Exposiciones S.A. Usuario Operador de Zona Franca Beneficio e Interés Colectivo» fue fundada.; No se encontró si la oposición de «Incubadora Santander S.A.» fue fundada."
+SD2022-0005052,Presenta Oposicion,distinto,NO,SI,[13],[12],El nombre del opositor no se pudo leer junto a «presentó oposición»; se tomó de la parte resolutiva.
+SD2022-0011050,Presenta Oposicion,distinto,NO,SI,[43],[42],
+SD2022-0016477,Presenta Oposicion,distinto,NO,SI,[76],[72],
+SD2022-0026819,Presenta Oposicion,distinto,NO,SI,[117],[108],No se pudo determinar en qué artículos fundó su oposición «FRANQUICIAS Y CONCESIONES S A S FRAYCO S.A.S.».; La resolución dice expresamente que NO está comprendido en 136h: no se cuenta como motivo.; La resolución niega el registro pero no se pudo determinar la causal. Revisar a mano.
+SD2022-0028314,Presenta Oposicion,distinto,NO,SI,[120],[111],
+SD2022-0032729,Presenta Oposicion,distinto,SI,NO,[143],[135],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0037737,Presenta Oposicion,distinto,NO,SI,[152],[147],
+SD2022-0038666,Presenta Oposicion,distinto,NO,SI,[182],[178],
+SD2022-0049886,Presenta Oposicion,distinto,SI,NO,[243],[240],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0056071,Presenta Oposicion,distinto,SI,NO,[285],"[278, 279]",el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0056830,Presenta Oposicion,distinto,NO,SI,[288],[282],
+SD2022-0057397,Presenta Oposicion,distinto,SI,NO,[291],[284],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0060997,Presenta Oposicion,distinto,SI,NO,[305],[299],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0063880,Presenta Oposicion,distinto,SI,NO,"[335, 336]",[329],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0070089,Presenta Oposicion,distinto,NO,SI,[350],[344],La resolución dice expresamente que NO está comprendido en 135i: no se cuenta como motivo.; La resolución dice expresamente que NO está comprendido en 135j: no se cuenta como motivo.
+SD2022-0071491,Presenta Oposicion,distinto,SI,NO,[364],[360],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0071599,Presenta Oposicion,distinto,SI,NO,[367],[363],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0073928,Presenta Oposicion,distinto,SI,NO,[387],[381],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0078993,Presenta Oposicion,distinto,SI,NO,[405],[402],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0088652,Presenta Oposicion,distinto,SI,NO,[439],[442],no se descargó ninguna resolución (TM9 / TM128)
+SD2022-0093178,Presenta Oposicion,distinto,NO,SI,[462],[471],
+SD2022-0106256,Presenta Oposicion,distinto,NO,SI,[536],"[556, 557]",No se pudo determinar en qué artículos fundó su oposición «RED BULL GMBH».
+SD2022-0119945,Presenta Oposicion,distinto,NO,SI,[572],[610],
+SD2022-0120935,Presenta Oposicion,distinto,SI,NO,[586],[636],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0121568,Presenta Oposicion,distinto,SI,NO,[588],[643],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0127575,Presenta Oposicion,distinto,SI,NO,"[618, 619]",[694],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2022-0133969,Presenta Oposicion,distinto,SI,NO,"[640, 641]",[742],el reporte dice «Bajo Oposición = Sí» y la resolución dice lo contrario; se usa la resolución
+SD2023-0007288,Presenta Oposicion,distinto,SI,NO,[687],[857],no se descargó ninguna resolución (TM9 / TM128)

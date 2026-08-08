@@ -1,0 +1,18 @@
+19:04:23 INFO  Leídas 987 filas de «Reporte 5 Enero 2025.xlsx» (987 expedientes únicos, 0 avisos)
+19:04:28 INFO  4 documento(s) en https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639217262766341757: APELACION, TM9, TM6, OTRO
+19:04:28 INFO  3 documento(s) en https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639217262773189135: TM128, TM6, OTRO
+19:04:28 INFO  9 documento(s) en https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639217262772536446: APELACION, OTRO, TM9, OTRO, OTRO, OTRO, TM6, OTRO, OTRO
+19:04:28 INFO  5 documento(s) en https://sipi.sic.gov.co/sipi/Extra/IP/Mutual/Browse.aspx?sid=639217262767036578: APELACION, TM128, TM6, OTRO, OTRO
+19:04:28 INFO  SD2022/0004420: descargado SD2022-0004420_TM128.pdf (88 KB)
+19:04:28 INFO  SD2022/0003185: descargado SD2022-0003185_APELACION.pdf (225 KB)
+19:04:29 INFO  SD2022/0003185: descargado SD2022-0003185_TM9.pdf (79 KB)
+19:04:29 INFO  SD2022/0004420: descargado SD2022-0004420_TM6.pdf (63 KB)
+19:04:29 INFO  SD2022/0004403: descargado SD2022-0004403_APELACION.pdf (356 KB)
+19:04:29 INFO  SD2022/0003185: descargado SD2022-0003185_TM6.pdf (65 KB)
+19:04:30 INFO  SD2022/0005052: descargado SD2022-0005052_APELACION.pdf (500 KB)
+19:04:30 INFO  SD2022/0004403: descargado SD2022-0004403_TM9.pdf (191 KB)
+19:04:30 INFO  SD2022/0004403: descargado SD2022-0004403_TM6.pdf (69 KB)
+19:04:31 INFO  SD2022/0005052: descargado SD2022-0005052_TM128.pdf (565 KB)
+19:04:31 INFO  SD2022/0005052: descargado SD2022-0005052_TM6.pdf (181 KB)
+19:04:42 INFO  Escritos 12 registros en C:\Users\femur\ExtraccionSIC\salida\Negacion_marcas_20260807_190442.xlsx
+19:04:42 INFO  Corrida cancelada: 12 expedientes, 11 PDFs, 12 registros, 0 errores → C:\Users\femur\ExtraccionSIC\salida\Negacion_marcas_20260807_190442.xlsx

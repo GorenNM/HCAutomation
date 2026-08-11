@@ -6,14 +6,18 @@ a propósito para romper el lector; las entradas buenas salen del reporte real.
 
 from __future__ import annotations
 
+import re
 import time
 import tracemalloc
+from pathlib import Path
 
 import openpyxl
 import pytest
+from openpyxl.utils import column_index_from_string
 
+from app.config import FILA_CABECERAS
 from app.excel.reader import ErrorLectura, leer_reporte
-from tests.conftest import CABECERAS_REPORTE, fila_datos, formula_enlace
+from tests.conftest import CABECERAS_REPORTE, RAIZ, fila_datos, formula_enlace
 
 # --- El caso feliz, contra datos reales --------------------------------------
 
@@ -240,3 +244,78 @@ def test_diez_mil_filas_no_revientan_la_memoria(tmp_path):
     # materializando el libro entero.
     assert pico < 60 * 1024 * 1024, f"pico de memoria {pico / 1e6:.1f} MB"
     assert duracion < 30, f"tardó {duracion:.1f} s"
+
+
+# --- El export crudo de SIPI trae las coordenadas mal escritas ----------------
+
+
+def _xlsx_con_coordenadas_rotas(destino: Path) -> Path:
+    """Reproduce el defecto real de `Excel_Report.xlsx`.
+
+    El exportador escribe la coordenada de las celdas de la fila de cabeceras
+    como «índice de columna + número de fila» en vez de «letra + fila»: '011'
+    donde debería ir 'A11'. openpyxl parte eso en columna vacía y revienta con
+    «'' is not a valid column name», en read_only y sin read_only.
+    """
+    import shutil
+    import zipfile
+
+    origen = RAIZ / "tests" / "data" / "mini_2_casos.xlsx"
+    shutil.copy(origen, destino)
+
+    with zipfile.ZipFile(destino) as libro:
+        piezas = {n: libro.read(n) for n in libro.namelist()}
+
+    hoja = next(n for n in piezas if n.startswith("xl/worksheets/"))
+    xml = piezas[hoja].decode("utf-8")
+    # Se rompe solo la fila de cabeceras, como hace SIPI.
+    def romper(m: re.Match[str]) -> str:
+        letras, fila = m.group(1), m.group(2)
+        if fila != str(FILA_CABECERAS):
+            return m.group(0)
+        indice = column_index_from_string(letras) - 1
+        return f'r="{indice}{fila}"'
+
+    piezas[hoja] = re.sub(r'r="([A-Z]+)(\d+)"', romper, xml).encode("utf-8")
+
+    with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as libro:
+        for nombre, datos in piezas.items():
+            libro.writestr(nombre, datos)
+    return destino
+
+
+def test_openpyxl_no_puede_con_el_archivo_roto(tmp_path):
+    """Si esto deja de fallar, la reparación ya no hace falta y sobra."""
+    import openpyxl
+
+    roto = _xlsx_con_coordenadas_rotas(tmp_path / "roto.xlsx")
+    with pytest.raises(ValueError, match="valid column name"):
+        hoja = openpyxl.load_workbook(roto, read_only=True).worksheets[0]
+        # En read_only las celdas no se analizan hasta que se piden, así que
+        # hay que llegar a la fila de cabeceras para que salte.
+        list(hoja.iter_rows(values_only=True))
+
+
+def test_se_lee_igual_que_el_mismo_archivo_sano(tmp_path):
+    sano = leer_reporte(RAIZ / "tests" / "data" / "mini_2_casos.xlsx")
+    roto = leer_reporte(_xlsx_con_coordenadas_rotas(tmp_path / "roto.xlsx"))
+
+    assert [f.expediente for f in roto.filas] == [f.expediente for f in sano.filas]
+    assert [f.marca for f in roto.filas] == [f.marca for f in sano.filas]
+    assert any("coordenadas de celda mal escritas" in a for a in roto.avisos)
+
+
+def test_el_archivo_original_no_se_toca(tmp_path):
+    """La reparación va en memoria: el .xlsx del usuario se queda como estaba."""
+    roto = _xlsx_con_coordenadas_rotas(tmp_path / "roto.xlsx")
+    antes = roto.read_bytes()
+    leer_reporte(roto)
+    assert roto.read_bytes() == antes
+
+
+# --- La clase de Niza sale del reporte, no de la configuración ----------------
+
+
+def test_el_reporte_declara_su_clase_de_niza():
+    filas = leer_reporte(RAIZ / "tests" / "data" / "mini_2_casos.xlsx")
+    assert filas.clases == ["5"]

@@ -1,4 +1,4 @@
-"""Round trip DOCUMENTACION.md through md2docx and check nothing got lost.
+"""Round trip MANUAL_USUARIO.md through md2docx and check nothing got lost.
 
 Expectations are counted from the markdown itself, not hardcoded, so the test
 survives edits to the document and only fails if the converter drops something.
@@ -17,7 +17,7 @@ from md2docx import MONO, convert  # noqa: E402
 from docx import Document  # noqa: E402
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-MD   = os.path.join(ROOT, "DOCUMENTACION.md")
+MD   = os.path.join(ROOT, "MANUAL_USUARIO.md")
 
 
 def _plain(text):
@@ -103,7 +103,7 @@ def test_documentacion():
 
 
 def test_bullets():
-    """DOCUMENTACION.md ya no usa viñetas; el conversor sí las soporta."""
+    """MANUAL_USUARIO.md ya no usa viñetas; el conversor sí las soporta."""
     with tempfile.TemporaryDirectory() as tmp:
         md = os.path.join(tmp, "b.md")
         with open(md, "w", encoding="utf-8") as fh:

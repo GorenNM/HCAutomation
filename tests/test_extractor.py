@@ -1,4 +1,4 @@
-"""Pruebas del extractor: los 15 casos del §13.3 del plan.
+"""Pruebas del extractor: el catálogo de casos adversariales.
 
 Los textos base son las resoluciones reales grabadas. Las variantes están
 deformadas a propósito para reventar el análisis, no para que pase.

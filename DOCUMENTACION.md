@@ -188,16 +188,35 @@ posible, porque nadie la echaría de menos al revisar.
 
 ## 6. Para desarrolladores
 
-El código vive en WSL; solo la construcción del `.exe` corre del lado Windows.
-Para el estado del proyecto y las decisiones tomadas, leer [`ESTADO.md`](ESTADO.md).
+El programa corre igual desde el código fuente que empaquetado. El `.exe` es solo una
+forma de repartirlo: no hay nada que dependa de estar empaquetado, salvo dónde se
+resuelven las carpetas de trabajo (`app/utils/rutas.py`).
 
 ### Correr desde el código fuente
+
+En Linux o WSL:
 
 ```bash
 python -m venv .venv
 .venv/bin/pip install -r requirements.txt -r requirements-dev.txt
 .venv/bin/python -m app
 ```
+
+En Windows, sin construir nada:
+
+```powershell
+py -m venv .venv-win
+.\.venv-win\Scripts\python.exe -m pip install -r requirements.txt -r requirements-dev.txt
+.\.venv-win\Scripts\python.exe -m app
+```
+
+Abre la misma ventana que el `.exe`. Es la vía más corta para probar un cambio sin
+esperar a PyInstaller, y la única que funciona si el Python instalado no sirve para
+empaquetar (ver el aviso de abajo).
+
+En Linux hace falta `tkinter`, que no viene con el Python de Ubuntu:
+`sudo apt install python3-tk`. El resto del programa —lectura del Excel, descargas,
+extracción, escritura— no lo necesita.
 
 ### Correr las pruebas
 
@@ -212,6 +231,21 @@ Casi todo corre **offline**, contra respuestas reales de SIPI grabadas en
 pruebas de `tests/test_windows.py` solo corren en Windows y se omiten en Linux.
 
 ### Reconstruir el `.exe`
+
+> **El Python importa.** Hay que construir con CPython de
+> [python.org](https://www.python.org/downloads/windows/). El build que reparten la
+> Microsoft Store y el *Python Install Manager* (`%LOCALAPPDATA%\Python\pythoncore-*`)
+> guarda Tcl/Tk **dentro de un zip embebido**, y PyInstaller no puede copiarlo de ahí:
+> el `.exe` se construye sin errores y luego muere al arrancar con
+> `FileNotFoundError: Tcl data directory ... _internal\_tcl_data not found`.
+> Para saber cuál tienes:
+>
+> ```powershell
+> python -c "import tkinter; print(tkinter.Tcl().eval('info library'))"
+> ```
+>
+> Si la ruta empieza por `//zipfs:/`, ese intérprete no sirve para empaquetar. Sí sirve
+> para correr desde el fuente.
 
 Desde Windows, con el proyecto en WSL:
 

@@ -45,9 +45,7 @@ def test_asegurar_dir_no_falla_si_ya_existe(tmp_path):
 
 
 def test_no_hay_open_sin_encoding_en_el_codigo():
-    """Caso 40 del plan.
-
-    En Linux `open()` usa UTF-8; en Windows usa cp1252 y rompe los acentos de
+    """En Linux `open()` usa UTF-8; en Windows usa cp1252 y rompe los acentos de
     las resoluciones. El fallo solo aparece en la máquina del usuario, así que
     se prohíbe la construcción, no el síntoma.
     """

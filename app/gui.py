@@ -1,4 +1,4 @@
-"""Ventana de la aplicación (§11 del plan).
+"""Ventana de la aplicación.
 
 Lo único que ve el usuario final: elegir el Excel, pulsar Iniciar, mirar la
 barra. Todo lo demás tiene un valor por defecto que ya funciona.

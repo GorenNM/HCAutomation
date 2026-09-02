@@ -3,14 +3,24 @@ REM Construye el ejecutable. Lo corre el desarrollador en Windows, no el usuario
 REM PyInstaller no hace cross-compilacion: esto tiene que ejecutarse sobre Windows.
 setlocal
 
+REM Sin version clavada: cualquier CPython 3 reciente sirve. Lo que NO sirve es
+REM el build de la Microsoft Store / Python Install Manager, que lleva Tcl/Tk
+REM dentro de un zip embebido. Se comprueba mas abajo.
 if not exist .venv-win\Scripts\python.exe (
     echo Creando entorno virtual de Windows...
-    py -3.14 -m venv .venv-win || goto :error
+    py -3 -m venv .venv-win || goto :error
 )
 
 call .venv-win\Scripts\activate.bat
 python -m pip install --quiet --upgrade pip || goto :error
 python -m pip install --quiet -r requirements-dev.txt || goto :error
+
+REM PyInstaller no puede sacar Tcl/Tk de un zipfs: el .exe se construye sin dar
+REM un solo error y luego muere al arrancar con
+REM 'Tcl data directory ..._internal\_tcl_data not found'. Mejor detenerse aqui.
+echo.
+echo === Comprobando el interprete ===
+python -c "import tkinter,sys;lib=tkinter.Tcl().eval('info library');print('  Tcl en',lib);sys.exit(1 if lib.startswith('//zipfs') else 0)" || goto :tcl_embebido
 
 echo.
 echo === Pruebas ===
@@ -60,6 +70,18 @@ echo Listo.
 echo   Compilado : dist\ExtraccionSIC\ExtraccionSIC.exe
 echo   Ejecutable: %DESTINO%\ExtraccionSIC.exe   ^<- abrir este
 exit /b 0
+
+:tcl_embebido
+echo.
+echo Este Python lleva Tcl/Tk dentro de un zip embebido y PyInstaller no puede
+echo empaquetarlo: el .exe se construiria roto.
+echo.
+echo Es el build de la Microsoft Store / Python Install Manager. Instale CPython
+echo de python.org, borre .venv-win y vuelva a ejecutar este script.
+echo.
+echo Para usar el programa mientras tanto, sin empaquetar nada:
+echo     .venv-win\Scripts\python.exe -m app
+exit /b 1
 
 :error
 echo.

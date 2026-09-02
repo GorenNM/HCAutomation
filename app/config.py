@@ -44,7 +44,7 @@ MIN_CARACTERES_PDF: Final = 500
 
 # --- Salida ------------------------------------------------------------------
 # LAYOUT define el formato del Excel generado. "poc" = una fila por motivo de
-# negación (§9 del plan). "clasico" = las 18 columnas del archivo de referencia,
+# negación. "clasico" = las 18 columnas del archivo de referencia,
 # con MOTIVO 1 / MOTIVO 2. Revertir la POC es cambiar este valor.
 LAYOUT: Final = "poc"
 LIMITE_CELDA_EXCEL: Final = 32_767

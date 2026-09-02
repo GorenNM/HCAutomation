@@ -344,9 +344,9 @@ def escribir(
         enlace = registro.source.case_url
         if enlace:
             celda = hoja.cell(row=numero, column=1)
-            # El reporte exporta http:// y el puerto 80 de SIPI no responde
-            # (punto 2c de ESTADO.md): un enlace http se cuelga hasta el
-            # timeout del navegador. Al Excel de salida va siempre https.
+            # El reporte exporta http:// y el puerto 80 de SIPI no
+            # responde: un enlace http se queda colgado hasta el timeout
+            # del navegador. Al Excel de salida va siempre https.
             celda.hyperlink = forzar_https(enlace)
             celda.font = FUENTE_ENLACE
 

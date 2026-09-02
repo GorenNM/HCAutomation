@@ -94,7 +94,7 @@ class _Contadores:
 
     Sin el cerrojo, `n += 1` desde 8 hilos pierde incrementos: son tres
     operaciones (leer, sumar, escribir) y el intérprete puede cambiar de hilo en
-    medio. Es el caso 34.
+    medio.
     """
 
     def __init__(self, total: int) -> None:

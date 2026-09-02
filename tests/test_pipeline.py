@@ -1,4 +1,4 @@
-"""Pruebas de la orquestación (casos 31–34 del §13.3).
+"""Pruebas de la orquestación.
 
 Todo corre **offline** contra las respuestas grabadas de SIPI, y con 8 hilos
 allí donde puede haber carrera. Lo que se busca aquí no es que el camino feliz

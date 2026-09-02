@@ -3,7 +3,7 @@
 Con `--autoprueba` no abre la ventana: importa todo, resuelve las rutas, escribe
 un informe y sale con 0 o 1. Es la única forma de comprobar automáticamente que
 el `.exe` empaquetado funciona — como se compila con `console=False`, un import
-que falte no imprime nada, solo se ve al hacer doble clic (caso 44 del plan).
+que falte no imprime nada, solo se ve al hacer doble clic.
 
 Añadiendo `--red` hace además una petición HTTPS real contra SIPI. Va aparte
 porque la construcción tiene que poder correr sin internet, pero es la única

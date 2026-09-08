@@ -23,6 +23,28 @@ manual restante que el programa señala en vez de inventarse.
 Pendiente: bajar ese 18 %, la coma de `artículo 136, literal h)` y ampliar
 `alias.json`.
 
+## Probarlo en un Windows nuevo
+
+Descargar el repositorio como ZIP (botón **Code → Download ZIP**), extraerlo y
+hacer doble clic en **`ejecutar.bat`**. La primera vez prepara el entorno (un par
+de minutos); a partir de ahí abre la ventana directamente.
+
+> Windows marca todo lo que viene de internet. Antes de extraer: clic derecho en
+> el ZIP → **Propiedades** → casilla **Desbloquear** → Aceptar. Si aun así sale
+> el aviso azul de SmartScreen, *Más información* → *Ejecutar de todas formas*.
+
+No empaqueta nada, así que sirve con cualquier Python 3 — incluido el de la
+Microsoft Store, que **no** vale para construir el `.exe`. Los dos Excel reales
+para probar vienen en el propio ZIP:
+
+| Archivo | Para qué |
+|---|---|
+| `Reporte 5 Enero 2025.xlsx` | el reporte de entrada, los 987 expedientes reales |
+| `Negacion marcas con información extra.xlsx` | el resultado hecho a mano, para comparar |
+
+El `.exe` empaquetado es la vía para repartirlo a quien no va a instalar Python:
+sale de cada tag en **Releases**, o de `construir_exe.bat` en local.
+
 ## Documentación
 
 [`DOCUMENTACION.md`](DOCUMENTACION.md) es el manual completo: instalar,
@@ -56,7 +78,9 @@ scripts/             # Utilidades sueltas (comparar_salida.py)
 alias.json           # 139 alias de opositores (nombre completo -> nombre corto)
 sembrar_alias.py      # Script que generó alias.json desde el archivo de referencia
 discrepancias.csv     # Diffs medidos contra el archivo de referencia manual
+ejecutar.bat          # Doble clic: abre el programa desde el fuente, sin empaquetar
 hcauto.spec / construir_exe.bat   # Empaquetado con PyInstaller para Windows
+proceso/              # Contexto del desarrollo: plan, bitácora, grafo del repo
 ```
 
 Las carpetas de datos de trabajo (`temp/`, `salida/`, `build/`, `dist/`,

@@ -230,6 +230,15 @@ Casi todo corre **offline**, contra respuestas reales de SIPI grabadas en
 `tests/fixtures/http/`. Para volver a grabarlas, `python -m tests.make_fixtures`. Las
 pruebas de `tests/test_windows.py` solo corren en Windows y se omiten en Linux.
 
+### Bajarlo ya construido
+
+Cada corrida de `.github/workflows/exe.yml` deja el `.exe` como artefacto
+(pestaña **Actions** → la corrida → *ExtraccionSIC*), y cada tag `v*` lo adjunta a
+la **Release** como `ExtraccionSIC.zip`. Se construye en un Windows limpio con
+CPython de python.org, así que no depende de qué Python haya en la máquina de
+nadie. Es la vía recomendada: reconstruir a mano solo hace falta para probar un
+cambio sin publicarlo.
+
 ### Reconstruir el `.exe`
 
 > **El Python importa.** Hay que construir con CPython de

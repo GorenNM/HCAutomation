@@ -3,6 +3,19 @@ REM Construye el ejecutable. Lo corre el desarrollador en Windows, no el usuario
 REM PyInstaller no hace cross-compilacion: esto tiene que ejecutarse sobre Windows.
 setlocal
 
+REM Si el proyecto vive en WSL, su ruta es UNC (\\wsl.localhost\...). Al hacer
+REM doble clic, cmd.exe rechaza esa ruta como directorio actual, se queda en
+REM C:\Windows y el script falla en la primera linea buscando .venv-win alli.
+REM `pushd` mapea la UNC a una letra de unidad temporal, que es lo unico que
+REM cmd.exe acepta como directorio de trabajo. %~dp0 = carpeta de este .bat.
+pushd "%~dp0" || (
+    echo No se pudo entrar en "%~dp0".
+    exit /b 1
+)
+
+REM Con doble clic la ventana muere al terminar y no da tiempo a leer el error.
+REM Se deja abierta salvo que quien llama pida lo contrario ^(set SIN_PAUSA=1^).
+
 REM Sin version clavada: cualquier CPython 3 reciente sirve. Lo que NO sirve es
 REM el build de la Microsoft Store / Python Install Manager, que lleva Tcl/Tk
 REM dentro de un zip embebido. Se comprueba mas abajo.
@@ -69,6 +82,8 @@ echo.
 echo Listo.
 echo   Compilado : dist\ExtraccionSIC\ExtraccionSIC.exe
 echo   Ejecutable: %DESTINO%\ExtraccionSIC.exe   ^<- abrir este
+if not defined SIN_PAUSA pause
+popd
 exit /b 0
 
 :tcl_embebido
@@ -81,9 +96,13 @@ echo de python.org, borre .venv-win y vuelva a ejecutar este script.
 echo.
 echo Para usar el programa mientras tanto, sin empaquetar nada:
 echo     .venv-win\Scripts\python.exe -m app
+if not defined SIN_PAUSA pause
+popd
 exit /b 1
 
 :error
 echo.
 echo FALLO la construccion. No se genero el ejecutable.
+if not defined SIN_PAUSA pause
+popd
 exit /b 1

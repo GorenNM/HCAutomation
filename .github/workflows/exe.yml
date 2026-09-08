@@ -49,7 +49,9 @@ jobs:
       - name: Autoprueba del ejecutable
         run: |
           .\dist\ExtraccionSIC.exe --autoprueba
-          type autoprueba.txt
+          set CODIGO=%ERRORLEVEL%
+          if exist dist\autoprueba.txt type dist\autoprueba.txt
+          exit /b %CODIGO%
         shell: cmd
 
       - name: Commitear el ejecutable

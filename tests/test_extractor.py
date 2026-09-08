@@ -69,23 +69,43 @@ def test_sd2022_0001545_opositor_completo():
     assert opositor.fundada == "SI"
 
 
-def test_sd2022_0097089_dos_motivos_y_dos_opositores():
+def test_sd2022_0097089_solo_cuenta_el_opositor_que_va_a_la_clase_5():
+    """La resolución trae dos oposiciones y solo una toca la clase del reporte:
+
+        'SOCIETE DES PRODUITS NESTLE SA, presentó oposición frente a las
+         clases 30 y 32'
+        'KRAFT FOODS SCHWEIZ HOLDING GMBH, presentó oposición frente a las
+         clases 5, 30, 31 y 32'
+
+    Registrar a NESTLE ponía en la fila un opositor a la clase 5 que nunca se
+    opuso a la clase 5. El archivo de referencia hecho a mano tampoco lo tiene.
+
+    Los motivos NO se filtran: son las causales por las que la Dirección negó
+    el registro, y valen para el expediente entero.
+    """
     datos = extraer(texto_grabado("SD2022-0097089_TM128"))
 
     assert datos.motivos == ["136a", "136h"]
     assert [o.nombre for o in datos.opositores] == [
-        "SOCIETE DES PRODUITS NESTLE SA",
-        "KRAFT FOODS SCHWEIZ HOLDING GMBH",
+        "KRAFT FOODS SCHWEIZ HOLDING GMBH"
     ]
-    assert datos.opositores[0].articulos == ["136a", "136h"]
-    assert datos.opositores[1].articulos == ["136a"]
-    assert all(o.fundada == "SI" for o in datos.opositores)
+    assert datos.opositores[0].articulos == ["136a"]
+    assert datos.opositores[0].fundada == "SI"
+    # Descartar no es callar: la fila dice a quién se dejó fuera y por qué.
+    assert any(
+        "SOCIETE DES PRODUITS NESTLE SA" in aviso and "30, 32" in aviso
+        for aviso in datos.avisos
+    )
 
 
 def test_el_mismo_opositor_repetido_por_clase_no_se_duplica():
-    """En 0097089 cada opositor aparece una vez por clase (6 declaraciones)."""
+    """En 0097089 cada opositor aparece una vez por clase (6 declaraciones).
+
+    KRAFT se opone a las clases 5, 30, 31 y 32 y la parte resolutiva lo repite
+    una vez por clase; tiene que salir una sola fila de opositor.
+    """
     datos = extraer(texto_grabado("SD2022-0097089_TM128"))
-    assert len(datos.opositores) == 2
+    assert len(datos.opositores) == 1
 
 
 # --- Casos 2 y 3: la negación, llevada al límite -----------------------------
@@ -427,12 +447,57 @@ def test_marca_con_parentesis_en_el_nombre():
         ("no se presentaron oposiciones por parte de terceros", False),
         ("no se presentaron oposicion es", False),
         ("la sociedad ALFA presentó oposición con fundamento", True),
-        ("presentó oposición frente a las clases 30 y 32", True),
+        # Sin mención de clase la oposición va contra toda la solicitud.
+        ("presentó oposición con fundamento en el artículo 136", True),
+        # Con mención, solo cuenta si incluye la clase del reporte (la 5).
+        ("presentó oposición frente a las clases 30 y 32", False),
+        ("presentó oposición frente a las clases 5, 30, 31 y 32", True),
+        ("presentó oposición frente a la clase 25", False),
+        ("presentó oposición al registro de la clase 5 reivindicada", True),
+        ("presentó oposición exclusivamente contra la solicitud de registro "
+         "en clase 42", False),
         ("el expediente no menciona nada del asunto", False),
     ],
 )
 def test_deteccion_de_oposicion(texto, esperado):
     assert hay_oposicion(normalizar(texto)) is esperado
+
+
+def test_la_clase_de_una_oposicion_no_contamina_a_la_siguiente():
+    """Dos oposiciones seguidas: la segunda no hereda la clase de la primera.
+
+    La primera acota a la clase 25 y la segunda no dice clase, así que va
+    contra toda la solicitud y sí cuenta.
+    """
+    texto = normalizar(
+        "Que publicado en la Gaceta No. 955, ALFA S.A., presentó oposición "
+        "frente a la clase 25, con fundamento en la causal de irregistrabilidad "
+        "establecida en el literal a) del artículo 136 de la Decisión 486. "
+        "Que publicado en la Gaceta No. 955, BETA S.A., presentó oposición con "
+        "fundamento en la causal de irregistrabilidad establecida en el literal "
+        "a) del artículo 136 de la Decisión 486."
+    )
+    opositores, avisos = extraer_opositores(texto)
+
+    assert [o.nombre for o in opositores] == ["BETA S.A."]
+    assert any("ALFA S.A." in aviso and "25" in aviso for aviso in avisos)
+
+
+def test_un_opositor_que_repite_por_clases_cuenta_si_alguna_es_la_del_reporte():
+    """Se filtra por opositor, no por frase: basta con que una de sus
+    oposiciones alcance la clase del reporte para que se registre."""
+    texto = normalizar(
+        "Que publicado en la Gaceta No. 955, ALFA S.A., presentó oposición "
+        "frente a la clase 25, con fundamento en la causal de irregistrabilidad "
+        "establecida en el literal h) del artículo 136 de la Decisión 486. "
+        "Que publicado en la Gaceta No. 955, ALFA S.A., presentó oposición "
+        "frente a la clase 5, con fundamento en la causal de irregistrabilidad "
+        "establecida en el literal a) del artículo 136 de la Decisión 486."
+    )
+    opositores, _ = extraer_opositores(texto)
+
+    assert [o.nombre for o in opositores] == ["ALFA S.A."]
+    assert opositores[0].articulos == ["136h", "136a"]
 
 
 def test_la_frase_explicita_gana_a_la_mencion_suelta():
@@ -595,35 +660,59 @@ def test_la_parte_resolutiva_no_se_recorta():
 # Cada texto es un extracto fiel del PDF real, verificado contra la descarga.
 
 
+# Texto real de SD2022/0005052: la oposición de MARYCOLOR va a la CLASE 3.
+_SD2022_0005052 = (
+    "Que publicado en la Gaceta de Propiedad Industrial No. 951, MARYCOLOR "
+    "S.A.S. c; preparaciones que contienen vitamina d; suplementos "
+    "nutricionales; vitaminas, minerales y antioxidantes en cuanto "
+    "suplementos nutricionales y dietéticos. presentó oposición en contra "
+    "de la clase 3 con fundamento en las causales de irregistrabilidad "
+    "establecidas en el literal b) del artículo 135 y el literal a) del "
+    "artículo 136 de la Decisión 486 de la Comisión de la Comunidad Andina. "
+    "Conclusión En consecuencia, el signo objeto de la solicitud está "
+    "comprendido en la causal de irregistrabilidad establecida en el "
+    "literal a) del artículo 136 de la Decisión 486 de la Comisión de la "
+    "Comunidad Andina. En mérito de lo expuesto esta Dirección, RESUELVE "
+    "ARTÍCULO 1. Declarar infundada la oposición interpuesta por MARYCOLOR "
+    "S.A.S., en contra de la clase 3, por las razones expuestas en la parte "
+    "motiva de la presente resolución. ARTÍCULO 2. Negar el registro de la "
+    "Marca MARIGOLD HEALT & CARE (Mixta)."
+)
+
+
 def test_sd2022_0005052_la_nota_al_pie_no_es_el_opositor():
     """La lista de productos de la marca del opositor entra como nota al pie
     ENTRE el nombre y «presentó oposición» (9 400 caracteres de por medio).
     El programa sacaba «minerales y antioxidantes en cuanto suplementos
     nutricionales y dietéticos.» como Opositor 1; el nombre real solo está
-    limpio en la parte resolutiva."""
-    texto = normalizar(
-        "Que publicado en la Gaceta de Propiedad Industrial No. 951, MARYCOLOR "
-        "S.A.S. c; preparaciones que contienen vitamina d; suplementos "
-        "nutricionales; vitaminas, minerales y antioxidantes en cuanto "
-        "suplementos nutricionales y dietéticos. presentó oposición en contra "
-        "de la clase 3 con fundamento en las causales de irregistrabilidad "
-        "establecidas en el literal b) del artículo 135 y el literal a) del "
-        "artículo 136 de la Decisión 486 de la Comisión de la Comunidad Andina. "
-        "Conclusión En consecuencia, el signo objeto de la solicitud está "
-        "comprendido en la causal de irregistrabilidad establecida en el "
-        "literal a) del artículo 136 de la Decisión 486 de la Comisión de la "
-        "Comunidad Andina. En mérito de lo expuesto esta Dirección, RESUELVE "
-        "ARTÍCULO 1. Declarar infundada la oposición interpuesta por MARYCOLOR "
-        "S.A.S., en contra de la clase 3, por las razones expuestas en la parte "
-        "motiva de la presente resolución. ARTÍCULO 2. Negar el registro de la "
-        "Marca MARIGOLD HEALT & CARE (Mixta)."
-    )
-    datos = extraer(texto)
+    limpio en la parte resolutiva.
+
+    Se mueve la oposición a la clase 5 a propósito: la del expediente real va
+    a la clase 3 y el filtro de clase la descartaría antes de llegar a la nota
+    al pie, que es lo que este test vigila. La otra mitad del caso real está
+    en `test_sd2022_0005052_la_oposicion_a_otra_clase_no_se_registra`.
+    """
+    datos = extraer(normalizar(_SD2022_0005052.replace("clase 3", "clase 5")))
 
     assert [o.nombre for o in datos.opositores] == ["MARYCOLOR S.A.S."]
     assert datos.opositores[0].articulos == ["135b", "136a"]
     assert datos.opositores[0].fundada == "NO"
     assert datos.motivos == ["136a"]
+
+
+def test_sd2022_0005052_la_oposicion_a_otra_clase_no_se_registra():
+    """MARYCOLOR se opuso «en contra de la clase 3» y el reporte es de clase 5.
+
+    Antes la fila salía con «Presenta Oposición = Sí» y opositor; el archivo de
+    referencia hecho a mano pone «No». La causal de negación sí es del
+    expediente y se mantiene.
+    """
+    datos = extraer(normalizar(_SD2022_0005052))
+
+    assert datos.presenta_oposicion is False
+    assert datos.opositores == []
+    assert datos.motivos == ["136a"]
+    assert any("clase" in aviso and "3" in aviso for aviso in datos.avisos)
     assert any("se tomó de la parte resolutiva" in a for a in datos.avisos)
 
 
@@ -692,3 +781,104 @@ def test_el_nombre_del_resuelve_corta_en_en_contra_de():
 
     assert opositores[0].fundada == "NO"
     assert avisos == []
+
+
+# --- Los cuatro bugs que salieron de comparar contra el archivo de referencia -
+# Cada uno se detectó comparando la corrida de los 987 expedientes contra
+# «Negacion marcas con información extra.xlsx» y se confirmó abriendo el PDF
+# citado en `salida/soportes/`. Ver `scripts/comparar_salida.py`.
+
+
+def test_literal_pegado_al_articulo_no_pierde_el_literal():
+    """SD2022/0017300 y SD2022/0052369: la capa de texto del PDF junta las dos
+    palabras y el motivo salía como '136' en vez de '136a', sin avisar."""
+    texto = normalizar(
+        "el signo objeto de la solicitud está comprendido en la causal de "
+        "irregistrabilidad establecida en el artículo 136 literala) de la "
+        "Decisión 486 de la Comisión de la Comunidad Andina."
+    )
+    motivos, _ = extraer_motivos(texto)
+    assert motivos == ["136a"]
+
+
+def test_cadena_de_articulos_sin_repetir_la_palabra_literal():
+    """SD2022/0049055: 'los literales b) del artículo 135 y a) del artículo
+    136'. El segundo eslabón omite 'literal' y se perdía 136a en silencio."""
+    texto = normalizar(
+        "NOVAMED S.A.S. presentó oposición con fundamento en las causales de "
+        "irregistrabilidad contenidas en los literales b) del artículo 135 y "
+        "a) del artículo 136 de la Decisión 486 de la Comisión de la "
+        "Comunidad Andina."
+    )
+    opositores, avisos = extraer_opositores(texto)
+    assert opositores[0].articulos == ["135b", "136a"]
+    assert avisos == []
+
+
+def test_una_cadena_que_no_se_sabe_leer_entera_avisa():
+    """El conector 'y en el' no está soportado, así que 136a no se captura.
+
+    Lo que no puede pasar es que se registre '135b' a secas como si fuera todo:
+    esa es la diferencia entre equivocarse y callarse.
+    """
+    texto = normalizar(
+        "ACME S.A. presentó oposición con fundamento en las causales de "
+        "irregistrabilidad contenidas en los literales b) del artículo 135 y "
+        "en el literal a) del artículo 136 de la Decisión 486."
+    )
+    opositores, avisos = extraer_opositores(texto)
+    assert opositores[0].articulos == ["135b"]
+    assert any("más artículos" in aviso for aviso in avisos)
+
+
+@pytest.mark.parametrize(
+    "crudo,esperado",
+    [
+        # SD2022/0096500: se cortaba por la coma y quedaba en 'LTD'.
+        (
+            "GUANGZHOU DECHENG BIOTECHNOLOGY CO., LTD",
+            "GUANGZHOU DECHENG BIOTECHNOLOGY CO., LTD",
+        ),
+        ("JHO INTELLECTUAL PROPERTY HOLDINGS, LLC.", "JHO INTELLECTUAL PROPERTY HOLDINGS, LLC."),
+        # SD2022/0120301 y 0122767: sin coma entre el preámbulo y el nombre.
+        (
+            "PRODUCTOS COMPRENDIDOS EN LA CLASE 5 DE LA CLASIFICACION "
+            "INTERNACIONAL DE NIZA1. QUE PUBLICADO EN LA GACETA DE PROPIEDAD "
+            "INDUSTRIAL NO. 989 FARMEX S.A",
+            "FARMEX S.A",
+        ),
+        (
+            "Que publicado en la Gaceta de Propiedad Industrial No. 987 del "
+            "20 de mayo de 2022, BIOSIDUS S.A",
+            "BIOSIDUS S.A",
+        ),
+        # SD2022/0063014: 'la opositora COLINAGRO S.A'.
+        ("la opositora COLINAGRO S.A", "COLINAGRO S.A"),
+        # Controles: nada de esto debe tocarse.
+        ("la sociedad Grupo Diagnostico S.A. Dimed S.A.", "Grupo Diagnostico S.A. Dimed S.A."),
+        ("RED BULL GMBH - TRADEMARK DEPARTMENT", "RED BULL GMBH - TRADEMARK DEPARTMENT"),
+    ],
+)
+def test_limpiar_nombre_de_opositor(crudo, esperado):
+    assert limpiar_nombre(crudo) == esperado
+
+
+def test_literal_entre_parentesis():
+    """SD2022/0052369: 'artículo 136 literal (a)'. Sin admitir el paréntesis
+    de apertura, la referencia caía a 'artículo 136' y el motivo salía '136'."""
+    texto = normalizar(
+        "el signo objeto de la solicitud está comprendido en la causal de "
+        "irregistrabilidad establecida en el artículo 136 literal (a) de la "
+        "Decisión 486 de la Comisión de la Comunidad Andina."
+    )
+    motivos, _ = extraer_motivos(texto)
+    assert motivos == ["136a"]
+
+
+def test_literales_entre_parentesis_encadenados():
+    texto = normalizar(
+        "está comprendido en las causales de irregistrabilidad establecidas en "
+        "el artículo 136 literales (a) y (h) de la Decisión 486."
+    )
+    motivos, _ = extraer_motivos(texto)
+    assert motivos == ["136a", "136h"]

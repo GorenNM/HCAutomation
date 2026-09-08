@@ -13,7 +13,10 @@ from __future__ import annotations
 
 import logging
 import re
+from dataclasses import dataclass
+from typing import Sequence
 
+from app.config import CLASE_OBJETIVO
 from app.models import ExtractedData, Opositor
 from app.parser import patterns as p
 from app.utils.text import clave_comparacion, normalizar
@@ -50,11 +53,41 @@ def extraer_marca(texto: str) -> str | None:
     return normalizar(encontrado.group("marca")) if encontrado else None
 
 
-def hay_oposicion(texto: str) -> bool:
+def clases_de_la_oposicion(texto: str, ancla: re.Match[str]) -> list[str]:
+    """Clases a las que se dirige una oposición. Vacío = no lo dice."""
+    alcance = p.ALCANCE_CLASES.match(texto, ancla.start())
+    if alcance is None:
+        return []
+    return re.findall(r"\d{1,3}", alcance.group("clases"))
+
+
+def _alcanza_la_clase(
+    texto: str, ancla: re.Match[str], objetivo: Sequence[str]
+) -> bool:
+    """False solo si la oposición se dirige EXPRESAMENTE a otras clases.
+
+    Una solicitud puede cubrir varias clases y el reporte de entrada trae solo
+    las suyas. Sin esto, la oposición que SD2022/0038666 recibió «frente a la
+    clase 25» se registraba como oposición a la clase 5.
+
+    Callar la clase significa ir contra toda la solicitud, así que la ausencia
+    de mención cuenta a favor de registrarla: perder una oposición real es peor
+    que arrastrar una de más, que se ve al revisar la fila.
+    """
+    clases = clases_de_la_oposicion(texto, ancla)
+    return not clases or any(c in clases for c in objetivo)
+
+
+def hay_oposicion(
+    texto: str, objetivo: Sequence[str] = (CLASE_OBJETIVO,)
+) -> bool:
     """La frase explícita manda sobre la ausencia de menciones."""
     if p.SIN_OPOSICION.search(texto):
         return False
-    return bool(p.HAY_OPOSICION.search(texto))
+    return any(
+        _alcanza_la_clase(texto, ancla, objetivo)
+        for ancla in p.HAY_OPOSICION.finditer(texto)
+    )
 
 
 def limpiar_nombre(crudo: str) -> str:
@@ -68,6 +101,7 @@ def limpiar_nombre(crudo: str) -> str:
     # Se recortan comas y espacios, pero NUNCA el punto final: los nombres
     # acaban en 'S.A.' y quitárselo los deja mal escritos.
     nombre = normalizar(crudo).lstrip(" ,;.").rstrip(" ,;")
+    nombre = p.PREAMBULO_GACETA.sub("", nombre).lstrip(" ,;.")
     partes = [parte.strip() for parte in nombre.split(",")]
     if len(partes) > 1:
         reconstruido = partes[-1]
@@ -105,23 +139,35 @@ def _opositores_del_resuelve(texto: str) -> list[Opositor]:
     return list(encontrados.values())
 
 
-def extraer_opositores(texto: str) -> tuple[list[Opositor], list[str]]:
-    """Opositores en orden de aparición, con los artículos que invocaron.
+@dataclass
+class _Oposicion:
+    """Una aparición de «presentó oposición», tal cual sale del texto."""
+
+    nombre: str  # '' si no se pudo leer
+    articulos: list[str]
+    clases: list[str]  # vacío = la resolución no acota la oposición a ninguna
+    parcial: bool = False  # se leyeron artículos, pero quedaron más sin leer
+
+
+def _oposiciones_del_texto(texto: str) -> list[_Oposicion]:
+    """Una entrada por aparición de «presentó oposición», sin agrupar ni filtrar.
 
     Primero se localiza la frase barata «presentó oposición» y solo alrededor
     de cada aparición se aplica el patrón completo. Buscarlo directamente sobre
     todo el texto costaba 11 s en un documento de 5 MB: el prefijo que captura
     el nombre se probaba en cada posición del documento.
     """
-    avisos: list[str] = []
-    por_clave: dict[str, Opositor] = {}
-    ilegibles = 0
-    huerfanos: list[list[str]] = []  # artículos de oposiciones sin nombre legible
+    encontradas: list[_Oposicion] = []
+    fin_anterior = 0
 
     for ancla in p.HAY_OPOSICION.finditer(texto):
-        inicio = max(0, ancla.start() - _VENTANA_ANTES)
+        # La ventana nunca retrocede más allá de la oposición anterior: si dos
+        # van a menos de _VENTANA_ANTES una de otra, `OPOSICION.search` devolvía
+        # la primera y la segunda se quedaba con el nombre de aquella.
+        inicio = max(fin_anterior, ancla.start() - _VENTANA_ANTES)
         ventana = texto[inicio : ancla.end() + _VENTANA_DESPUES]
         coincidencia = p.OPOSICION.search(ventana)
+        parcial = False
 
         if coincidencia is None:
             # Hay oposición pero sin la fórmula «con fundamento en…».
@@ -130,54 +176,120 @@ def extraer_opositores(texto: str) -> tuple[list[Opositor], list[str]]:
         else:
             nombre = limpiar_nombre(coincidencia.group("antes"))
             articulos = p.codigos_de_referencia(coincidencia, "_op")
-            articulos += [
-                codigo
-                for codigo in p.referencias_encadenadas(ventana, coincidencia.end())
-                if codigo not in articulos
-            ]
+            encadenadas, fin = p.referencias_encadenadas(ventana, coincidencia.end())
+            articulos += [c for c in encadenadas if c not in articulos]
+            # Si tras la última referencia leída sigue habiendo 'y el literal…',
+            # es que quedaron artículos fuera y no sabemos cuáles.
+            parcial = bool(p.REFERENCIA_COLGANTE.match(ventana, fin))
 
         if nombre and not _parece_nombre(nombre):
             nombre = ""  # cola de una lista de productos, no un nombre
-        if not nombre:
-            ilegibles += 1
-            if articulos:
-                huerfanos.append(articulos)
+
+        encontradas.append(
+            _Oposicion(nombre, articulos, clases_de_la_oposicion(texto, ancla), parcial)
+        )
+        fin_anterior = ancla.end()
+
+    return encontradas
+
+
+def _rescatar_nombres(
+    texto: str, oposiciones: list[_Oposicion]
+) -> tuple[list[_Oposicion], list[str]]:
+    """Nombres desde la parte resolutiva cuando ninguno se pudo leer arriba.
+
+    Las clases se heredan de las apariciones ilegibles: el filtro por clase se
+    aplica después, así que el rescate tiene que correr igualmente aunque la
+    oposición acabe descartada. Si no, el aviso diría «Un opositor» en vez del
+    nombre, que es justo el dato que hace falta para revisar la fila.
+    """
+    rescatados = _opositores_del_resuelve(texto)
+    if not rescatados:
+        return [], ["Se detectó una oposición sin nombre de opositor legible."]
+
+    avisos = [
+        "El nombre del opositor no se pudo leer junto a «presentó oposición»; "
+        "se tomó de la parte resolutiva."
+    ]
+    clases: list[str] = []
+    for oposicion in oposiciones:
+        clases.extend(c for c in oposicion.clases if c not in clases)
+
+    con_articulos = [o for o in oposiciones if o.articulos]
+    if len(rescatados) == 1 and len(con_articulos) == 1:
+        # Una sola oposición con artículos y un solo opositor declarado: los
+        # artículos son suyos sin ambigüedad.
+        articulos = list(con_articulos[0].articulos)
+        parcial = con_articulos[0].parcial
+    else:
+        articulos, parcial = [], False
+
+    return [
+        _Oposicion(o.nombre, list(articulos), list(clases), parcial) for o in rescatados
+    ], avisos
+
+
+def extraer_opositores(
+    texto: str, objetivo: Sequence[str] = (CLASE_OBJETIVO,)
+) -> tuple[list[Opositor], list[str]]:
+    """Opositores en orden de aparición, con los artículos que invocaron.
+
+    Se leen todas las apariciones, se agrupan por nombre y solo al final se
+    descartan las dirigidas a otras clases. Ese orden importa: un mismo
+    opositor puede oponerse a varias clases en frases distintas, y basta con
+    que una alcance la del reporte para que cuente.
+    """
+    avisos: list[str] = []
+    oposiciones = _oposiciones_del_texto(texto)
+    if not oposiciones:
+        return [], avisos
+
+    if not any(o.nombre for o in oposiciones):
+        oposiciones, avisos_rescate = _rescatar_nombres(texto, oposiciones)
+        avisos.extend(avisos_rescate)
+
+    por_clave: dict[str, Opositor] = {}
+    clases: dict[str, list[str]] = {}
+    sin_acotar: set[str] = set()  # se opusieron a la solicitud entera
+    parciales: set[str] = set()
+
+    for oposicion in oposiciones:
+        if not oposicion.nombre:
             continue
-        if not articulos:
+        clave = clave_comparacion(oposicion.nombre)
+        # El mismo opositor puede repetir la frase una vez por clase.
+        destino = por_clave.setdefault(clave, Opositor(nombre=oposicion.nombre))
+        destino.articulos.extend(
+            a for a in oposicion.articulos if a not in destino.articulos
+        )
+        vistas = clases.setdefault(clave, [])
+        vistas.extend(c for c in oposicion.clases if c not in vistas)
+        if not oposicion.clases:
+            sin_acotar.add(clave)
+        if oposicion.parcial:
+            parciales.add(clave)
+
+    opositores: list[Opositor] = []
+    for clave, opositor in por_clave.items():
+        if clave not in sin_acotar and not any(c in clases[clave] for c in objetivo):
+            avisos.append(
+                f"«{opositor.nombre}» se opuso solo a la(s) clase(s) "
+                f"{', '.join(clases[clave])} y no a la {'/'.join(objetivo)}: "
+                "no se registra."
+            )
+            continue
+        if not opositor.articulos:
             avisos.append(
                 f"No se pudo determinar en qué artículos fundó su oposición "
-                f"«{nombre}»."
+                f"«{opositor.nombre}»."
             )
-        clave = clave_comparacion(nombre)
-        if clave in por_clave:
-            # El mismo opositor puede repetir la frase una vez por clase.
-            existentes = por_clave[clave].articulos
-            existentes.extend(a for a in articulos if a not in existentes)
-        else:
-            por_clave[clave] = Opositor(nombre=nombre, articulos=list(articulos))
-
-    opositores = list(por_clave.values())
-    rescatados = False
-    if not opositores and ilegibles:
-        opositores = _opositores_del_resuelve(texto)
-        rescatados = bool(opositores)
-        if rescatados:
+        elif clave in parciales:
             avisos.append(
-                "El nombre del opositor no se pudo leer junto a «presentó "
-                "oposición»; se tomó de la parte resolutiva."
+                f"«{opositor.nombre}» invoca más artículos de los que se pudieron "
+                f"leer; solo se registró {', '.join(opositor.articulos)}. "
+                "Revisar a mano."
             )
-            if len(opositores) == 1 and len(huerfanos) == 1:
-                # Una sola oposición con artículos y un solo opositor
-                # declarado: los artículos son suyos sin ambigüedad.
-                opositores[0].articulos = list(huerfanos[0])
-            else:
-                avisos.extend(
-                    f"No se pudo determinar en qué artículos fundó su oposición "
-                    f"«{opositor.nombre}»."
-                    for opositor in opositores
-                )
-    if ilegibles and not rescatados:
-        avisos.append("Se detectó una oposición sin nombre de opositor legible.")
+        opositores.append(opositor)
 
     return opositores, avisos
 
@@ -253,11 +365,8 @@ def _causales_de(texto: str) -> tuple[list[str], list[str]]:
     for coincidencia in p.DECLARACION_CAUSAL.finditer(texto):
         codigos = p.codigos_de_referencia(coincidencia, "_mo")
         # '…en el literal b) del artículo 135 y el literal a) del artículo 136'
-        codigos += [
-            codigo
-            for codigo in p.referencias_encadenadas(texto, coincidencia.end())
-            if codigo not in codigos
-        ]
+        encadenadas, _ = p.referencias_encadenadas(texto, coincidencia.end())
+        codigos += [codigo for codigo in encadenadas if codigo not in codigos]
         destino = negadas if coincidencia.group("neg") else afirmadas
         destino.extend(codigo for codigo in codigos if codigo not in destino)
     return afirmadas, negadas
@@ -318,7 +427,11 @@ def _avisar_sin_motivos(texto: str) -> list[str]:
 # --- Punto de entrada --------------------------------------------------------
 
 
-def extraer(texto: str, apelacion: bool | None = None) -> ExtractedData:
+def extraer(
+    texto: str,
+    apelacion: bool | None = None,
+    objetivo: Sequence[str] = (CLASE_OBJETIVO,),
+) -> ExtractedData:
     """Analiza la resolución completa. Nunca lanza excepción."""
     if not texto or not texto.strip():
         return ExtractedData(
@@ -330,9 +443,9 @@ def extraer(texto: str, apelacion: bool | None = None) -> ExtractedData:
     if datos.naturaleza is None:
         datos.avisos.append("No se pudo determinar la naturaleza de la marca.")
 
-    datos.presenta_oposicion = hay_oposicion(texto)
+    datos.presenta_oposicion = hay_oposicion(texto, objetivo)
 
-    opositores, avisos_opositores = extraer_opositores(texto)
+    opositores, avisos_opositores = extraer_opositores(texto, objetivo)
     datos.avisos.extend(avisos_opositores)
     datos.avisos.extend(asignar_fundadas(texto, opositores))
 

@@ -230,14 +230,17 @@ Casi todo corre **offline**, contra respuestas reales de SIPI grabadas en
 `tests/fixtures/http/`. Para volver a grabarlas, `python -m tests.make_fixtures`. Las
 pruebas de `tests/test_windows.py` solo corren en Windows y se omiten en Linux.
 
-### Bajarlo ya construido
+### De dónde sale el `.exe`
 
-Cada corrida de `.github/workflows/exe.yml` deja el `.exe` como artefacto
-(pestaña **Actions** → la corrida → *ExtraccionSIC*), y cada tag `v*` lo adjunta a
-la **Release** como `ExtraccionSIC.zip`. Se construye en un Windows limpio con
-CPython de python.org, así que no depende de qué Python haya en la máquina de
-nadie. Es la vía recomendada: reconstruir a mano solo hace falta para probar un
-cambio sin publicarlo.
+`ExtraccionSIC.exe` está versionado en la raíz del repositorio: quien descargue
+el ZIP lo tiene dentro y solo hace doble clic. Lo reconstruye
+`.github/workflows/exe.yml` en un Windows limpio, y **solo a mano**
+(Actions → *exe* → *Run workflow*) o al publicar un tag `v*`. No se dispara en
+cada push: cada corrida añade unos 30 MB al historial de git.
+
+El workflow usa el CPython de `setup-python`, que nunca es el de la Microsoft
+Store, así que el fallo del Tcl descrito abajo no puede darse ahí. Corre la
+batería completa y ejecuta `--autoprueba` antes de commitear nada.
 
 ### Reconstruir el `.exe`
 

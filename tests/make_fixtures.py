@@ -19,7 +19,7 @@ from pathlib import Path
 import openpyxl
 
 RAIZ = Path(__file__).resolve().parents[1]
-ORIGEN = RAIZ / "Reporte 5 Enero 2025.xlsx"
+ORIGEN = RAIZ / "datos" / "Reporte 5 Enero 2025.xlsx"
 DESTINO = RAIZ / "tests" / "data"
 
 PRIMERA_FILA_DATOS = 12

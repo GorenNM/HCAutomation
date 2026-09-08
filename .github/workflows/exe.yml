@@ -58,8 +58,8 @@ jobs:
         if: github.event_name == 'workflow_dispatch'
         run: |
           copy /Y dist\ExtraccionSIC.exe ExtraccionSIC.exe
-          git config user.name  "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git config user.name  "Fabio Murcia"
+          git config user.email "167843496+GorenNM@users.noreply.github.com"
           git add -f ExtraccionSIC.exe
           git diff --staged --quiet && echo "sin cambios" || git commit -m "Reconstruir ExtraccionSIC.exe"
           git push origin HEAD:%GITHUB_REF_NAME%

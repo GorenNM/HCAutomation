@@ -37,9 +37,9 @@ vienen en el mismo ZIP:
 
 | Archivo | Para qué |
 |---|---|
-| `Reporte 5 Enero 2025.xlsx` | el reporte de entrada, los 987 expedientes reales |
-| `Excel_Report.xlsx` | el export crudo de SIPI, con las coordenadas de celda rotas que el programa repara solo |
-| `Negacion marcas con información extra.xlsx` | el resultado hecho a mano, para comparar |
+| `datos/Reporte 5 Enero 2025.xlsx` | el reporte de entrada, los 987 expedientes reales |
+| `datos/Excel_Report.xlsx` | el export crudo de SIPI, con las coordenadas de celda rotas que el programa repara solo |
+| `datos/Negacion marcas con información extra.xlsx` | el resultado hecho a mano, para comparar |
 
 ## Documentación
 
@@ -72,8 +72,7 @@ docs/                # Diagramas de arquitectura y flujo (SVG + PNG) versionados
 
 scripts/             # Utilidades sueltas (comparar_salida.py)
 alias.json           # 139 alias de opositores (nombre completo -> nombre corto)
-sembrar_alias.py      # Script que generó alias.json desde el archivo de referencia
-discrepancias.csv     # Diffs medidos contra el archivo de referencia manual
+datos/                # Los Excel reales de entrada, referencia y salidas (ver datos/LEEME.md)
 ExtraccionSIC.exe     # El ejecutable, reconstruido por .github/workflows/exe.yml
 hcauto.spec / construir_exe.bat   # Empaquetado con PyInstaller (--onefile)
 proceso/              # Contexto del desarrollo: plan, bitácora, grafo del repo
@@ -84,7 +83,7 @@ entornos virtuales, cachés) están fuera del control de versiones — ver
 [`.gitignore`](.gitignore).
 
 > **Nota sobre los datos incluidos:** los `.xlsx` sueltos en la raíz,
-> `discrepancias.csv` y `tests/propios/` contienen expedientes, marcas y
+> `datos/` y `tests/propios/` contienen expedientes, marcas y
 > opositores reales de SIC. Es información administrativa pública, pero el
 > repo se dejó **privado** por tratarse de casos concretos, no sintéticos.
 

@@ -79,7 +79,7 @@ def construir_reporte(tmp_path):
 
 @pytest.fixture(scope="session")
 def reporte_real() -> Path:
-    ruta = RAIZ / "Reporte 5 Enero 2025.xlsx"
+    ruta = RAIZ / "datos" / "Reporte 5 Enero 2025.xlsx"
     if not ruta.is_file():
         pytest.skip("No está el reporte real en la raíz del proyecto")
     return ruta

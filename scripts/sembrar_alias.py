@@ -1,6 +1,7 @@
 """Genera `alias.json` a partir del archivo de referencia.
 
-    python sembrar_alias.py "Negacion marcas con información extra.xlsx"
+    python scripts/sembrar_alias.py            # usa datos/ por defecto
+    python scripts/sembrar_alias.py otro.xlsx  # o el archivo que se le pase
 
 El «Nombre corto» de un opositor no se deduce por ninguna regla: `RED BULL GMBH`
 → `RedBull` es criterio humano. Lo único que se puede hacer es reaprovechar los
@@ -86,9 +87,15 @@ def construir(pares: list[tuple[str, str]]) -> tuple[dict[str, str], list[str]]:
     return alias, avisos
 
 
+# Anclado a la raiz, no al directorio actual: el script se llama desde donde sea.
+RAIZ = Path(__file__).resolve().parents[1]
+
+
 def main(argv: list[str]) -> int:
-    origen = Path(argv[1]) if len(argv) > 1 else Path(
-        "Negacion marcas con información extra.xlsx"
+    origen = (
+        Path(argv[1])
+        if len(argv) > 1
+        else RAIZ / "datos" / "Negacion marcas con información extra.xlsx"
     )
     if not origen.is_file():
         print(f"No existe «{origen}».", file=sys.stderr)
@@ -97,7 +104,7 @@ def main(argv: list[str]) -> int:
     pares = leer_pares(origen)
     alias, avisos = construir(pares)
 
-    destino = Path("alias.json")
+    destino = RAIZ / "alias.json"
     destino.write_text(
         json.dumps(alias, ensure_ascii=False, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",

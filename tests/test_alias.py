@@ -10,10 +10,15 @@ import pytest
 from app.excel.writer import cargar_alias, expandir, valores
 from app.models import ExtractedData, Opositor, SourceRow
 from app.utils.text import clave_comparacion
-from sembrar_alias import PARES_DE_COLUMNAS, PRIMERA_FILA, construir, leer_pares
+from scripts.sembrar_alias import (
+    PARES_DE_COLUMNAS,
+    PRIMERA_FILA,
+    construir,
+    leer_pares,
+)
 from tests.conftest import RAIZ
 
-REFERENCIA = RAIZ / "Negacion marcas con información extra.xlsx"
+REFERENCIA = RAIZ / "datos" / "Negacion marcas con información extra.xlsx"
 ALIAS = RAIZ / "alias.json"
 
 
@@ -161,7 +166,7 @@ def test_las_variantes_de_escritura_si_se_funden(tmp_path):
 
 def test_alias_json_existe_y_es_utf8_legible():
     if not ALIAS.is_file():
-        pytest.skip("Falta alias.json: correr python sembrar_alias.py")
+        pytest.skip("Falta alias.json: correr python scripts/sembrar_alias.py")
     datos = json.loads(ALIAS.read_text(encoding="utf-8"))
 
     assert len(datos) > 100

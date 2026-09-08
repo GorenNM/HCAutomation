@@ -50,7 +50,7 @@ if exist alias.json (
     copy /Y alias.json dist\ExtraccionSIC\alias.json >nul || goto :error
     echo   alias.json incluido
 ) else (
-    echo   AVISO: no hay alias.json. Generarlo con: python sembrar_alias.py
+    echo   AVISO: no hay alias.json. Generarlo con: python scripts\sembrar_alias.py
 )
 
 REM El .exe NO arranca desde una ruta de red o UNC (\\wsl.localhost\...): el

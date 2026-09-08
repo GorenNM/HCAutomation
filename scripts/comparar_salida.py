@@ -11,12 +11,16 @@ nuestras filas por expediente y comparando CONJUNTOS de motivos.
 import re
 import sys
 import unicodedata
+from pathlib import Path
 from collections import defaultdict
 
 import openpyxl
 
-REF_DEFAULT = "Negacion marcas con información extra.xlsx"
-OUT_DEFAULT = "Negacion_marcas_20260807_213955.xlsx"
+# Anclados a la raiz, no al directorio actual: el script se llama desde donde sea.
+RAIZ = Path(__file__).resolve().parents[1]
+DATOS = RAIZ / "datos"
+REF_DEFAULT = DATOS / "Negacion marcas con información extra.xlsx"
+OUT_DEFAULT = DATOS / "Negacion_marcas_20260807_213955.xlsx"
 
 # columnas 1-based
 REF = dict(exp=1, marca=2, naturaleza=3, oposicion=4, op1=5, corto1=6, art1=7,
@@ -289,7 +293,7 @@ def main():
 
     if "--csv" in sys.argv:
         import csv
-        with open("discrepancias.csv", "w", newline="", encoding="utf-8") as fh:
+        with open(DATOS / "discrepancias.csv", "w", newline="", encoding="utf-8") as fh:
             w = csv.writer(fh)
             w.writerow(["expediente", "campo", "tipo", "ref", "nuestro",
                         "fila_ref", "filas_ntro", "observaciones"])
@@ -298,7 +302,7 @@ def main():
                             sorted(b) if isinstance(b, set) else b,
                             ref[e]["filas"], out[e]["filas"],
                             " | ".join(sorted(out[e]["obs"]))])
-        print("\n-> discrepancias.csv escrito")
+        print("\n-> datos/discrepancias.csv escrito")
     return 0
 
 

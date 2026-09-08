@@ -128,14 +128,17 @@ def test_todo_lo_demas_se_repite_en_las_dos_filas(tmp_path):
     assert distintas == {"MOTIVO Negación", "Motivo #"}
 
 
-def test_los_dos_opositores_salen_en_sus_columnas(tmp_path):
+def test_solo_el_opositor_a_la_clase_del_reporte_sale_en_sus_columnas(tmp_path):
+    """0097089 trae dos oposiciones: NESTLE a las clases 30 y 32, KRAFT a las
+    5, 30, 31 y 32. El reporte es de clase 5, así que solo KRAFT es opositor
+    y la columna Opositor 2 queda vacía."""
     resultado = corrida("mini_multimotivo.xlsx", tmp_path)
 
     fila = filas_como_diccionarios(resultado.ruta_excel)[0]
-    assert fila["Opositor 1"] == "SOCIETE DES PRODUITS NESTLE SA"
-    assert fila["Opositor 2"] == "KRAFT FOODS SCHWEIZ HOLDING GMBH"
+    assert fila["Opositor 1"] == "KRAFT FOODS SCHWEIZ HOLDING GMBH"
     assert fila["Fundada OP 1"] == "SI"
-    assert fila["Fundada OP 2"] == "SI"
+    assert not fila["Opositor 2"]
+    assert "SOCIETE DES PRODUITS NESTLE SA" in fila["Observaciones"]
 
 
 # --- Estructura del archivo generado -----------------------------------------

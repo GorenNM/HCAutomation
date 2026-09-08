@@ -26,9 +26,16 @@ import threading
 from concurrent.futures import ThreadPoolExecutor
 from dataclasses import dataclass, field, replace
 from pathlib import Path
-from typing import Callable, Protocol
+from typing import Callable, Protocol, Sequence
 
-from app.config import HILOS_DEFECTO, HILOS_MAX, LAYOUT, dir_salida, dir_temp
+from app.config import (
+    CLASE_OBJETIVO,
+    HILOS_DEFECTO,
+    HILOS_MAX,
+    LAYOUT,
+    dir_salida,
+    dir_temp,
+)
 from app.downloader.files import descargar_documentos
 from app.downloader.scraper import (
     ErrorScraping,
@@ -37,7 +44,7 @@ from app.downloader.scraper import (
     extraer_documentos,
 )
 from app.downloader.session import SesionSIPI
-from app.excel.reader import leer_reporte
+from app.excel.reader import ResultadoLectura, leer_reporte
 from app.excel.writer import cargar_alias, escribir, expandir, ruta_por_defecto
 from app.models import DocumentLink, ExtractedData, OutputRecord, SourceRow, TipoDoc
 from app.parser.extractor import extraer
@@ -94,7 +101,7 @@ class _Contadores:
 
     Sin el cerrojo, `n += 1` desde 8 hilos pierde incrementos: son tres
     operaciones (leer, sumar, escribir) y el intérprete puede cambiar de hilo en
-    medio. Es el caso 34.
+    medio.
     """
 
     def __init__(self, total: int) -> None:
@@ -183,6 +190,27 @@ def _pagina_del_expediente(
     return pagina, documentos
 
 
+def _clases_objetivo(filas: ResultadoLectura) -> tuple[str, ...]:
+    """Con qué clases de Niza se filtran las oposiciones.
+
+    Sale del propio reporte, no de la configuración. Correr un reporte de la
+    clase 3 con el filtro puesto en la 5 descarta todas las oposiciones buenas
+    y NO da error: escribe un Excel lleno de «Presenta Oposición = No» que
+    parece legítimo. Es el fallo más caro que puede tener este programa, así
+    que el dato se toma de donde no se puede desincronizar.
+    """
+    if filas.clases:
+        log.info("Reporte de la(s) clase(s) %s", ", ".join(filas.clases))
+        return tuple(filas.clases)
+    filas.avisos.append(
+        f"El reporte no declara su clase de Niza; se filtran las oposiciones "
+        f"con la clase {CLASE_OBJETIVO} de la configuración. Si el reporte es "
+        f"de otra clase, las columnas de opositor saldrán vacías."
+    )
+    log.warning("El reporte no declara clase; se usa %s por defecto", CLASE_OBJETIVO)
+    return (CLASE_OBJETIVO,)
+
+
 def procesar_expediente(
     sesion: SesionSIPI,
     fuente: SourceRow,
@@ -190,6 +218,7 @@ def procesar_expediente(
     reusar: bool = True,
     layout: str = LAYOUT,
     soportes: Path | None = None,
+    clases: Sequence[str] = (CLASE_OBJETIVO,),
 ) -> tuple[list[OutputRecord], int, list[str]]:
     """Un expediente completo: página → PDFs → texto → registros.
 
@@ -229,7 +258,7 @@ def procesar_expediente(
         problemas.append("no se descargó ninguna resolución (TM9 / TM128)")
         datos = ExtractedData(apelacion=apelacion)
     else:
-        datos = extraer(texto_de_pdf(ruta), apelacion=apelacion)
+        datos = extraer(texto_de_pdf(ruta), apelacion=apelacion, objetivo=clases)
         conflicto = _contradice_al_excel(fuente, datos)
         if conflicto:
             problemas.append(conflicto)
@@ -312,6 +341,7 @@ def _correr(
     layout: str,
 ) -> Resultado:
     filas = leer_reporte(Path(entrada))
+    clases = _clases_objetivo(filas)
     hilos = max(1, min(hilos, HILOS_MAX))
     contadores = _Contadores(total=len(filas.filas))
     resultado = Resultado(errores=list(filas.avisos))
@@ -364,6 +394,7 @@ def _correr(
                     temp,
                     reusar=reusar,
                     layout=layout,
+                    clases=clases,
                     soportes=dir_soportes
                     / nombre_archivo_seguro(fuente.expediente),
                 )

@@ -1,0 +1,72 @@
+# Construye ExtraccionSIC.exe en Windows y lo deja COMMITEADO en la raiz del
+# repo, para que al descargar el ZIP (boton Code -> Download ZIP) el ejecutable
+# venga dentro y baste con hacer doble clic.
+#
+# Se construye aqui y no en la maquina de nadie porque el fallo que costo dos
+# commits no estaba en el codigo sino en QUE Python habia instalado: el de la
+# Microsoft Store guarda Tcl/Tk en un zip embebido, PyInstaller no puede
+# copiarlo, y el .exe se compila sin un solo error para morir al arrancar. Aqui
+# el interprete lo pone setup-python (CPython de python.org), asi que ese caso
+# no puede darse.
+#
+# Solo corre a mano o en un tag: cada corrida anade ~30 MB al historial de git y
+# eso no se puede deshacer. No se dispara en cada push a proposito.
+name: exe
+
+on:
+  workflow_dispatch:
+  push:
+    tags: ["v*"]
+
+jobs:
+  build:
+    runs-on: windows-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: python -m pip install -r requirements-dev.txt
+
+      # No deberia saltar nunca con setup-python; si salta es que cambio de
+      # build y hay que enterarse antes de publicar un .exe roto.
+      - name: Comprobar que Tcl/Tk no viene en un zipfs
+        run: python -c "import tkinter,sys;lib=tkinter.Tcl().eval('info library');print('Tcl en',lib);sys.exit(1 if lib.startswith('//zipfs') else 0)"
+
+      - name: Pruebas
+        run: python -m pytest -q
+
+      - name: Empaquetar
+        run: python -m PyInstaller hcauto.spec --noconfirm --clean
+
+      # console=False: un import que falte no imprime nada al hacer doble clic.
+      # --autoprueba importa los diez modulos y comprueba que las carpetas de
+      # trabajo son escribibles. Sin esto se podria publicar un .exe muerto.
+      - name: Autoprueba del ejecutable
+        run: |
+          .\dist\ExtraccionSIC.exe --autoprueba
+          set CODIGO=%ERRORLEVEL%
+          if exist dist\autoprueba.txt type dist\autoprueba.txt
+          exit /b %CODIGO%
+        shell: cmd
+
+      - name: Commitear el ejecutable
+        if: github.event_name == 'workflow_dispatch'
+        run: |
+          copy /Y dist\ExtraccionSIC.exe ExtraccionSIC.exe
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f ExtraccionSIC.exe
+          git diff --staged --quiet && echo "sin cambios" || git commit -m "Reconstruir ExtraccionSIC.exe"
+          git push origin HEAD:%GITHUB_REF_NAME%
+        shell: cmd
+
+      - name: Adjuntar a la Release
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: dist/ExtraccionSIC.exe

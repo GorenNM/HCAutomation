@@ -1,4 +1,4 @@
-"""Pruebas de la escritura del Excel de salida (casos 35–38 del §13.3).
+"""Pruebas de la escritura del Excel de salida.
 
 Las aserciones no se ablandan: si algo pasa por aquí es porque el writer
 aguanta, no porque la prueba se haya conformado.
@@ -377,7 +377,7 @@ def test_con_un_solo_opositor_el_segundo_bloque_queda_vacio():
 
 
 def test_un_tercer_opositor_no_agrega_columnas():
-    """Decisión 3 del §18: la salida se queda con 2, el resto va a Observaciones."""
+    """La salida se queda con 2 opositores; el resto va a Observaciones."""
     datos = extraido(
         motivos=["136a"],
         opositores=[Opositor(f"OPOSITOR {n}") for n in range(1, 6)],

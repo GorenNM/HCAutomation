@@ -3,9 +3,8 @@
 
     python docs/gen_diagramas.py
 
-Se sigue `guia-diagramas-imagen.md`: el SVG se compone a mano y se rasteriza con
-`cairosvg`. Las invariantes que no se tocan, porque cada una viene de un fallo
-real (§12 de la guía):
+El SVG se compone a mano y se rasteriza con `cairosvg`. Las invariantes que no
+se tocan, porque cada una viene de un fallo real:
 
 * `font-family` DejaVu — es la única fuente que cairosvg tiene garantizada.
   Con cualquier otra el PNG sale con métricas mal calculadas y texto desbordado.
@@ -86,7 +85,7 @@ def banda(x: float, y: float, ancho: float, alto: float, etiqueta: str) -> str:
 
 
 def tamano_nombre(nombre: str) -> float:
-    """Los nombres largos desbordan a 11.5px. Ver §6.4 de la guía."""
+    """Los nombres largos desbordan a 11.5px."""
     return max(9.3, min(11.5, 152 / (len(nombre) * 0.60)))
 
 
@@ -256,7 +255,7 @@ def flujo() -> str:
     primero = 148
     salto = ch + 30  # hueco suficiente para que se vea la flecha entre tarjetas
     # El alto se calcula: bajarlo a ojo y olvidar el último elemento es el
-    # recorte clásico que avisa el §8 de la guía.
+    # recorte clásico de este método.
     ly = primero + len(pasos) * salto + 12
     ancho, alto = 1340, ly + 70 + 30
 

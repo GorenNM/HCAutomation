@@ -1,4 +1,4 @@
-"""Casos 39–43 del §13.3: lo que solo se rompe en Windows.
+"""Lo que solo se rompe en Windows.
 
 Toda esta capa existe porque el proyecto **no** se desarrolla en un contenedor.
 Corriendo solo en Linux, ninguno de estos fallos aparecería, y todos le pasarían
@@ -150,7 +150,7 @@ def test_caso_41_ningun_caracter_prohibido_sobrevive(tmp_path, expediente):
 
 
 def test_caso_42_una_corrida_completa_en_una_ruta_con_acentos(tmp_path):
-    """`C:\\Users\\José\\Mis documentos\\` — el caso del plan, entero."""
+    """`C:\\Users\\José\\Mis documentos\\` — tildes y espacios, de punta a punta."""
     carpeta = tmp_path / "José Ramírez" / "Mis documentos" / "Extracción SIC"
 
     resultado = ejecutar(

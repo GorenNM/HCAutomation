@@ -1,6 +1,6 @@
 """Pruebas de la descarga a disco.
 
-Cubre los casos 16–18 y 22–24 del §13.3 del plan. Los PDFs buenos son los
+Los PDFs buenos son los
 grabados de SIPI; los malos se construyen cortándolos o sustituyéndolos por la
 respuesta real que devolvió el sitio cuando no entregó el documento.
 """

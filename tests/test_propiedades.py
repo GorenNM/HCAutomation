@@ -1,4 +1,4 @@
-"""Pruebas basadas en propiedades (§13.4 del plan).
+"""Pruebas basadas en propiedades.
 
 Acotadas a propósito a dos objetivos: la normalización de texto y el parseo de
 listas de literales. Generar prosa jurídica aleatoria no probaría nada útil —

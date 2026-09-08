@@ -2,6 +2,8 @@
 .venv-win/
 build/
 dist/
+# El ejecutable publicado SI se versiona (lo escribe el workflow exe.yml).
+!ExtraccionSIC.exe
 temp/
 salida/
 __pycache__/
@@ -11,3 +13,9 @@ __pycache__/
 .hypothesis/
 ~$*
 *.tmp
+autoprueba.txt
+
+# Herramientas de IA: regenerable o propio de cada maquina. El unico artefacto
+# que se guarda es proceso/GRAFO.md, el informe legible del grafo del repo.
+graphify-out/
+.claude/

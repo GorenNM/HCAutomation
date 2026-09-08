@@ -11,14 +11,17 @@ Tiene una fórmula de Excel:
 
 from __future__ import annotations
 
+import io
 import logging
 import re
+import zipfile
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterator
 from zipfile import BadZipFile
 
 import openpyxl
+from openpyxl.utils import get_column_letter
 from openpyxl.utils.exceptions import InvalidFileException
 
 from app.config import FILA_CABECERAS
@@ -57,6 +60,9 @@ class ErrorLectura(Exception):
 class ResultadoLectura:
     filas: list[SourceRow] = field(default_factory=list)
     avisos: list[str] = field(default_factory=list)
+    # Clases de Niza con las que se exportó el reporte (fila «Good and Services
+    # Class»). Vacío si el reporte no las declara.
+    clases: list[str] = field(default_factory=list)
 
     @property
     def expedientes_unicos(self) -> set[str]:
@@ -111,6 +117,109 @@ def _abrir(ruta: Path):
         ) from exc
 
 
+# --- Reparación de coordenadas ------------------------------------------------
+# El exportador crudo de SIPI escribe mal la coordenada de las celdas de la fila
+# de cabeceras: en vez de la letra de columna pone el índice, pegado al número
+# de fila.
+#
+#     <x:row r="11"><x:c r="011" ...><x:v>Número de caso</x:v></x:c>
+#                        ^^^ debería ser A11;  '1611' debería ser Q11
+#
+# openpyxl parte 'A11' en letras + dígitos, y con '011' se queda con la columna
+# vacía: «'' is not a valid column name». Falla en los dos modos, así que no
+# vale con reintentar sin read_only. El archivo que sí funcionaba estaba abierto
+# y reguardado con Excel, que de paso reescribe las coordenadas bien.
+#
+# La reparación es exacta, no una conjetura: se conoce el número de fila por su
+# etiqueta `<row r="N">`, y basta quitarlo del final para leer el índice. No se
+# supone por la posición de la celda dentro de la fila, que se equivocaría en
+# cuanto hubiera huecos.
+
+_COORDENADA_VALIDA = re.compile(r"^[A-Z]+\d+$")
+
+# Vale tanto para '<c ...>' como para '<x:c ...>': el export de SIPI usa prefijo
+# de espacio de nombres y el de Excel no.
+_ETIQUETA_CELDA = re.compile(r"<(?:\w+:)?(row|c)\b([^>]*)>")
+_ATRIBUTO_R = re.compile(r'\br="([^"]*)"')
+
+
+def _reparar_xml(xml: str) -> tuple[str, int]:
+    """Devuelve el XML con las coordenadas arregladas y cuántas se tocaron."""
+    fila = ""
+    arreglos = 0
+
+    def sustituir(coincidencia: re.Match[str]) -> str:
+        nonlocal fila, arreglos
+        etiqueta, atributos = coincidencia.group(1), coincidencia.group(2)
+        encontrado = _ATRIBUTO_R.search(atributos)
+
+        if etiqueta == "row":
+            fila = encontrado.group(1) if encontrado else ""
+            return coincidencia.group(0)
+
+        if encontrado is None:
+            return coincidencia.group(0)
+        crudo = encontrado.group(1)
+        if _COORDENADA_VALIDA.match(crudo):
+            return coincidencia.group(0)
+        # Solo se toca lo que encaja con el defecto conocido; cualquier otra
+        # forma rara se deja como está para que el error salga y se vea.
+        if not fila or not crudo.isdigit() or not crudo.endswith(fila):
+            return coincidencia.group(0)
+
+        indice = crudo[: -len(fila)]
+        columna = get_column_letter(int(indice or 0) + 1)
+        arreglos += 1
+        return coincidencia.group(0).replace(
+            f'r="{crudo}"', f'r="{columna}{fila}"', 1
+        )
+
+    return _ETIQUETA_CELDA.sub(sustituir, xml), arreglos
+
+
+def _reparar_coordenadas(ruta: Path) -> tuple[io.BytesIO, int]:
+    """Copia el .xlsx a memoria con las coordenadas de celda corregidas."""
+    destino = io.BytesIO()
+    arreglos = 0
+    with zipfile.ZipFile(ruta) as origen:
+        with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as copia:
+            for elemento in origen.infolist():
+                datos = origen.read(elemento.filename)
+                if elemento.filename.startswith("xl/worksheets/") and (
+                    elemento.filename.endswith(".xml")
+                ):
+                    xml, tocadas = _reparar_xml(datos.decode("utf-8"))
+                    datos = xml.encode("utf-8")
+                    arreglos += tocadas
+                copia.writestr(elemento, datos)
+    destino.seek(0)
+    return destino, arreglos
+
+
+# El reporte declara en su cabecera con qué clases de Niza se exportó:
+#
+#     Good and Services Class(es)_ES:  | 3
+#
+# Sacarlo de ahí en vez de fijarlo en la configuración evita el peor error
+# posible de este programa: correr un reporte de la clase 3 con el filtro
+# puesto en la 5 descarta todas las oposiciones buenas y no da ningún fallo,
+# solo un Excel lleno de «Presenta Oposición = No». Ver `config.CLASE_OBJETIVO`.
+_ETIQUETA_CLASES = "good and services class"
+
+
+def _clases_del_reporte(hoja) -> list[str]:
+    """Clases de Niza declaradas en la cabecera del reporte, en orden."""
+    for valores in hoja.iter_rows(
+        min_row=1, max_row=max(1, FILA_CABECERAS - 1), values_only=True
+    ):
+        etiqueta = _clave(valores[0] if valores else "")
+        if _ETIQUETA_CLASES not in etiqueta:
+            continue
+        crudo = " ".join(str(v) for v in valores[1:] if v not in (None, ""))
+        return list(dict.fromkeys(re.findall(r"\d{1,2}", crudo)))
+    return []
+
+
 def _texto(valor: object) -> str:
     return normalizar(str(valor)) if valor is not None else ""
 
@@ -147,10 +256,8 @@ def _filas_de_datos(hoja) -> Iterator[tuple[int, tuple[object, ...]]]:
         yield numero, valores
 
 
-def leer_reporte(ruta: str | Path) -> ResultadoLectura:
-    """Lee el reporte y devuelve una fila por expediente, más los avisos."""
-    ruta = Path(ruta)
-    libro = _abrir(ruta)
+def _leer_libro(ruta: Path, origen) -> ResultadoLectura:
+    libro = _abrir(origen)
     try:
         hoja = libro.worksheets[0]
         cabeceras = next(
@@ -166,8 +273,36 @@ def leer_reporte(ruta: str | Path) -> ResultadoLectura:
             )
         columnas = _mapear_columnas(cabeceras)
         resultado = _recorrer(hoja, columnas)
+        resultado.clases = _clases_del_reporte(hoja)
+        return resultado
     finally:
         libro.close()
+
+
+def leer_reporte(ruta: str | Path) -> ResultadoLectura:
+    """Lee el reporte y devuelve una fila por expediente, más los avisos."""
+    ruta = Path(ruta)
+    try:
+        resultado = _leer_libro(ruta, ruta)
+    except ValueError as exc:
+        # En read_only openpyxl no analiza las celdas hasta que se piden, así
+        # que esto NO salta dentro de `_abrir`: llega aquí, al leer cabeceras.
+        if "valid column name" not in str(exc):
+            raise ErrorLectura(
+                f"No se pudo leer «{ruta.name}»: el archivo parece dañado ({exc})."
+            ) from exc
+        reparado, arreglos = _reparar_coordenadas(ruta)
+        log.warning(
+            "«%s» trae %d coordenadas de celda mal escritas; se corrigen en "
+            "memoria. El archivo original no se toca.",
+            ruta.name,
+            arreglos,
+        )
+        resultado = _leer_libro(ruta, reparado)
+        resultado.avisos.append(
+            f"«{ruta.name}» venía con {arreglos} coordenadas de celda mal "
+            "escritas por el exportador de SIPI; se corrigieron al leerlo."
+        )
 
     _avisar_duplicados(resultado)
     log.info(

@@ -14,8 +14,13 @@ import re
 
 # --- Piezas reutilizables ----------------------------------------------------
 
-# 'a)'  ·  'a) y b)'  ·  'a), b) y h)'
-_LISTA_LITERALES = r"[a-z]\)(?:\s*(?:,|y|e)\s*[a-z]\))*"
+# 'a)'  ·  'a) y b)'  ·  'a), b) y h)'  ·  '(a)'
+# El paréntesis de apertura es opcional porque la SIC escribe las dos formas:
+#   'el artículo 136 literal a) de la Decisión 486'
+#   'el artículo 136 literal (a) de la Decisión 486'   (SD2022/0052369)
+# Sin admitirlo, la referencia caía a la rama de «artículo suelto» y el motivo
+# salía como '136' en vez de '136a', sin ningún aviso.
+_LISTA_LITERALES = r"\(?[a-z]\)(?:\s*(?:,|y|e)\s*\(?[a-z]\))*"
 
 _CONECTOR = r"(?:l[oa]s?\s+|el\s+)?"
 
@@ -29,11 +34,24 @@ _CAUSAL = r"(?:la|las)\s+(?:\(s\)\s+)?causal(?:es)?\s+(?:\(es\)\s+)?"
 #   'artículo 136 literal a)'            · 'artículo 136 literales a) y h)'
 #   'literales a) y b) del artículo 136' · 'literal a) del artículo 136'
 #   'artículo 147'                       (causales sin literal: 147, 154, 172)
+#
+# El espacio tras 'literal' es opcional: la capa de texto de algunos PDFs pega
+# las dos palabras. En SD2022/0017300 y SD2022/0052369 el texto extraído dice
+#   'establecida en el artículo 136 literala) de la Decisión 486'
+# y con `\s+` la rama se caía a 'artículo 136' a secas: el motivo salía como
+# '136' en vez de '136a', sin ningún aviso.
+#
+# La palabra 'literal' es opcional en la segunda rama porque el segundo eslabón
+# de una cadena la omite:
+#   'en los literales b) del artículo 135 y a) del artículo 136'  (SD2022/0049055)
+# Sin hacerla opcional, `OTRA_REFERENCIA` no enganchaba el 'a) del artículo 136'
+# y se perdía 136a en silencio. Exigir el '[a-z])' evita que la rama dispare
+# sola: 'del artículo 136' sin letra-paréntesis delante no la activa.
 def _referencia(sufijo: str) -> str:
     return (
         rf"(?:art[íi]culo\s+(?P<art_a{sufijo}>\d+)\s+"
-        rf"literal(?:es)?\s+(?P<lits_a{sufijo}>{_LISTA_LITERALES})"
-        rf"|literal(?:es)?\s+(?P<lits_b{sufijo}>{_LISTA_LITERALES})\s+"
+        rf"literal(?:es)?\s*(?P<lits_a{sufijo}>{_LISTA_LITERALES})"
+        rf"|(?:literal(?:es)?\s*)?(?P<lits_b{sufijo}>{_LISTA_LITERALES})\s+"
         rf"del\s+art[íi]culo\s+(?P<art_b{sufijo}>\d+)"
         rf"|art[íi]culo\s+(?P<art_c{sufijo}>\d+))"
     )
@@ -76,6 +94,25 @@ SIN_OPOSICION = re.compile(
 
 # 'presentó oposición'  (TM128)
 HAY_OPOSICION = re.compile(r"present[óo]\s+oposici[óo]n", re.IGNORECASE)
+
+# A qué clases va dirigida la oposición. Formas reales, todas verificadas en los
+# PDFs de `salida/soportes/`:
+#   '…presentó oposición frente a la clase 25, con fundamento…'      (0038666)
+#   '…presentó oposición frente a las clases 5, 30, 31 y 32, con…'   (KRAFT)
+#   '…presentó oposición exclusivamente contra la solicitud de registro en
+#     clase 42, con fundamento…'                                     (0016477)
+#   '…presentó oposición al registro de la clase 3 reivindicada…'    (0028314)
+#   '…presentó oposición con fundamento en…'   (sin clase: va contra todo)
+#
+# El relleno no puede cruzar el 'con fundamento' ni otra oposición: sin esa
+# guarda, una oposición sin clase se quedaba con la clase de la oposición
+# siguiente. Se ancla con `.match()` sobre el 'presentó oposición'.
+ALCANCE_CLASES = re.compile(
+    r"present[óo]\s+oposici[óo]n"
+    r"(?:(?!con\s+(?:fundamento|base)|present[óo]\s+oposici)[^.;:]){0,150}?"
+    r"\bclases?\s+(?P<clases>\d{1,3}(?:\s*(?:,|y|e)\s*\d{1,3})*)",
+    re.IGNORECASE,
+)
 
 # Verificado contra las formas reales:
 #   '…la sociedad Grupo Diagnostico S.A. Dimed S.A., presentó oposición con
@@ -125,8 +162,12 @@ OTRA_REFERENCIA = re.compile(
 )
 
 
-def referencias_encadenadas(texto: str, pos: int) -> list[str]:
-    """Códigos de las referencias que encadenan con una ya capturada en `pos`."""
+def referencias_encadenadas(texto: str, pos: int) -> tuple[list[str], int]:
+    """Códigos que encadenan con una referencia ya capturada, y dónde acaban.
+
+    Devuelve también la posición final para que quien llame pueda mirar si
+    quedó texto de referencia sin consumir (ver `REFERENCIA_COLGANTE`).
+    """
     codigos: list[str] = []
     while coincidencia := OTRA_REFERENCIA.match(texto, pos):
         codigos.extend(
@@ -135,7 +176,22 @@ def referencias_encadenadas(texto: str, pos: int) -> list[str]:
             if codigo not in codigos
         )
         pos = coincidencia.end()
-    return codigos
+    return codigos, pos
+
+
+# Queda un 'y el literal…' / 'y en el artículo…' que la cadena no supo leer: se
+# capturó parte de los artículos, no todos. No sabemos cuáles faltan, así que
+# solo sirve para avisar — es la diferencia entre equivocarse y callarse.
+#
+# Se admite relleno entre el conector y la palabra clave ('y en el literal a)')
+# porque `OTRA_REFERENCIA` solo acepta los conectores que ya vio, y justo los
+# que no acepta son los que hay que delatar. Exigir el 'y'/'e' adyacente
+# mantiene el falso positivo a raya: la coletilla normal tras una referencia es
+# '… de la Decisión 486 …', que no empieza por conector.
+REFERENCIA_COLGANTE = re.compile(
+    r"\s*(?:,\s*)?(?:y|e)\s+(?:[a-zá-úñ]{1,12}\s+){0,3}(?:literal|art[íi]culo)\b",
+    re.IGNORECASE,
+)
 
 # 'ARTÍCULO 1. Declarar fundada la oposición interpuesta por parte de la
 #  sociedad Grupo Diagnóstico S.A. Dimed S.A. ARTÍCULO 2. Negar…'
@@ -214,16 +270,32 @@ CONCEDE_REGISTRO = re.compile(
 # --- Limpieza de nombres de opositor -----------------------------------------
 
 # 'la sociedad Grupo Diagnostico…' → 'Grupo Diagnostico…'
+# 'la opositora COLINAGRO S.A' → 'COLINAGRO S.A'   (SD2022/0063014)
 PREFIJO_PERSONA = re.compile(
     r"^(?:l[ao]s?\s+sociedad(?:es)?|el\s+se[ñn]or(?:a)?|la\s+se[ñn]ora|"
-    r"l[ao]s?\s+empresas?|el|la|los|las)\s+",
+    r"l[ao]s?\s+empresas?|l[ao]s?\s+opositor[ae]?s?|opositor[ae]s?|"
+    r"el|la|los|las)\s+",
     re.IGNORECASE,
+)
+
+# El nombre viene detrás del preámbulo de la Gaceta, y cuando la resolución no
+# mete coma entre uno y otro el nombre salía con el preámbulo pegado delante:
+#   '…NIZA1. QUE PUBLICADO EN LA GACETA DE PROPIEDAD INDUSTRIAL NO. 989
+#     FARMEX S.A'  →  'FARMEX S.A'      (SD2022/0120301, 0122767, 0124584, 0069292)
+# El '.*' es glotón a propósito: si la ventana pilla dos preámbulos, el nombre
+# está detrás del último.
+PREAMBULO_GACETA = re.compile(
+    r"^.*gaceta\s+de\s+propiedad\s+industrial\s+n[oº°]\.?\s*\d+\s*"
+    r"(?:del?\s+\d{1,2}\s+de\s+[a-záéíóú]+\.?\s+de\s+\d{4})?\s*[,.]?\s*",
+    re.IGNORECASE | re.DOTALL,
 )
 
 # Sufijos societarios que van tras una coma y NO deben tomarse por otro nombre:
 # 'JHO INTELLECTUAL PROPERTY HOLDINGS, LLC.' es un solo opositor.
+# 'LTDA?' cubre el 'LTD' suelto: sin él, 'GUANGZHOU DECHENG BIOTECHNOLOGY CO.,
+# LTD' se cortaba por la coma y el opositor quedaba en 'LTD'. (SD2022/0096500)
 SUFIJO_SOCIETARIO = re.compile(
-    r"^(?:S\.?A\.?S?\.?|LTDA\.?|INC\.?|LLC\.?|GMBH|CORP\.?|CO\.?|S\.?L\.?|"
+    r"^(?:S\.?A\.?S?\.?|LTDA?\.?|INC\.?|LLC\.?|GMBH|CORP\.?|CO\.?|S\.?L\.?|"
     r"LIMITED|COMPANY|DE\s+C\.?V\.?|N\.?V\.?|B\.?V\.?|PLC|AG|KG|SRL|SPA)\b",
     re.IGNORECASE,
 )

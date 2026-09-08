@@ -42,6 +42,17 @@ COLUMNA_ENLACE: Final = 1
 # Menos caracteres que esto en una resolución = PDF escaneado sin capa de texto.
 MIN_CARACTERES_PDF: Final = 500
 
+# Clase de Niza del reporte. TIENE que coincidir con el filtro «Good and
+# Services Class» con el que se exportó el Excel de entrada.
+#
+# Una solicitud puede cubrir varias clases y recibir oposiciones dirigidas
+# expresamente a otras: en SD2022/0038666 (clases 5, 25 y 30) la resolución dice
+# «LEVISTRAUS [&] CO presentó oposición frente a la clase 25». Sin este filtro
+# esa oposición se registraba como si fuera a la clase 5 — la fila salía con
+# «Presenta Oposición = Sí», opositor, artículos y fundada, todo falso y sin
+# ningún aviso. Ver `extractor._alcanza_la_clase`.
+CLASE_OBJETIVO: Final = "5"
+
 # --- Salida ------------------------------------------------------------------
 # LAYOUT define el formato del Excel generado. "poc" = una fila por motivo de
 # negación. "clasico" = las 18 columnas del archivo de referencia,

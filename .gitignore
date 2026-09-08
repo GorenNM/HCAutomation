@@ -2,6 +2,8 @@
 .venv-win/
 build/
 dist/
+# El ejecutable publicado SI se versiona (lo escribe el workflow exe.yml).
+!ExtraccionSIC.exe
 temp/
 salida/
 __pycache__/

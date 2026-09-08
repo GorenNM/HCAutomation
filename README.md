@@ -6,10 +6,10 @@ expediente desde SIPI (`sipi.sic.gov.co`), extraer los datos de las
 resoluciones (naturaleza de la marca, oposición, opositores, motivos de
 negación) y generar un Excel nuevo, listo para revisión manual.
 
-Se entrega como aplicación de escritorio para Windows (`.exe`, PyInstaller
-`--onedir`, sin instalación) con una ventana en `tkinter`: elegir Excel y
-carpeta de salida, correr con varios hilos, ver progreso en vivo y abrir la
-carpeta de resultados al terminar.
+Se entrega como aplicación de escritorio para Windows (ejecutable sin
+instalación) con una ventana en `tkinter`: elegir Excel y carpeta de salida,
+correr con varios hilos, ver progreso en vivo y abrir la carpeta de
+resultados al terminar.
 
 ## Estado
 
@@ -23,27 +23,23 @@ manual restante que el programa señala en vez de inventarse.
 Pendiente: bajar ese 18 %, la coma de `artículo 136, literal h)` y ampliar
 `alias.json`.
 
-## Probarlo en un Windows nuevo
+## Usarlo
 
-Descargar el repositorio como ZIP (botón **Code → Download ZIP**), extraerlo y
-hacer doble clic en **`ejecutar.bat`**. La primera vez prepara el entorno (un par
-de minutos); a partir de ahí abre la ventana directamente.
+Descargar el repositorio como ZIP (botón verde **Code → Download ZIP**),
+extraerlo y hacer **doble clic en `ExtraccionSIC.exe`**. Nada que instalar.
 
-> Windows marca todo lo que viene de internet. Antes de extraer: clic derecho en
-> el ZIP → **Propiedades** → casilla **Desbloquear** → Aceptar. Si aun así sale
-> el aviso azul de SmartScreen, *Más información* → *Ejecutar de todas formas*.
+> Windows marca lo que viene de internet. Antes de extraer: clic derecho en el
+> ZIP → **Propiedades** → casilla **Desbloquear** → Aceptar. Si aun así sale el
+> aviso azul de SmartScreen: *Más información* → *Ejecutar de todas formas*.
 
-No empaqueta nada, así que sirve con cualquier Python 3 — incluido el de la
-Microsoft Store, que **no** vale para construir el `.exe`. Los dos Excel reales
-para probar vienen en el propio ZIP:
+`salida/` y `temp/` se crean junto al `.exe`. Los dos Excel reales para probar
+vienen en el mismo ZIP:
 
 | Archivo | Para qué |
 |---|---|
 | `Reporte 5 Enero 2025.xlsx` | el reporte de entrada, los 987 expedientes reales |
+| `Excel_Report.xlsx` | el export crudo de SIPI, con las coordenadas de celda rotas que el programa repara solo |
 | `Negacion marcas con información extra.xlsx` | el resultado hecho a mano, para comparar |
-
-El `.exe` empaquetado es la vía para repartirlo a quien no va a instalar Python:
-sale de cada tag en **Releases**, o de `construir_exe.bat` en local.
 
 ## Documentación
 
@@ -57,9 +53,9 @@ quien no lee Markdown.
 
 ```
 app/
-  gui.py           # Ventana tkinter: la aplicación de escritorio
+  gui.py            # Ventana tkinter: la aplicación de escritorio
   pipeline.py       # ejecutar(): orquesta todo con ThreadPoolExecutor
-  config.py         # Layout de salida (poc / clasico) y constantes
+  config.py         # Constantes, parámetros y layout de salida
   models.py         # Modelos de datos del expediente
   excel/            # Lectura del reporte de entrada, escritura del Excel de salida
   parser/           # Texto de PDF -> patrones regex -> datos extraídos
@@ -78,8 +74,8 @@ scripts/             # Utilidades sueltas (comparar_salida.py)
 alias.json           # 139 alias de opositores (nombre completo -> nombre corto)
 sembrar_alias.py      # Script que generó alias.json desde el archivo de referencia
 discrepancias.csv     # Diffs medidos contra el archivo de referencia manual
-ejecutar.bat          # Doble clic: abre el programa desde el fuente, sin empaquetar
-hcauto.spec / construir_exe.bat   # Empaquetado con PyInstaller para Windows
+ExtraccionSIC.exe     # El ejecutable, reconstruido por .github/workflows/exe.yml
+hcauto.spec / construir_exe.bat   # Empaquetado con PyInstaller (--onefile)
 proceso/              # Contexto del desarrollo: plan, bitácora, grafo del repo
 ```
 
@@ -87,15 +83,12 @@ Las carpetas de datos de trabajo (`temp/`, `salida/`, `build/`, `dist/`,
 entornos virtuales, cachés) están fuera del control de versiones — ver
 [`.gitignore`](.gitignore).
 
-> **Nota sobre los datos incluidos:** los `.xlsx` sueltos en la raíz
-> (`Reporte 5 Enero 2025.xlsx`, `Negacion marcas con información extra.xlsx`,
-> `Negacion_marcas_20260807_213955.xlsx`), `discrepancias.csv` y
-> `tests/propios/` contienen expedientes, marcas y opositores reales de SIC.
-> Es información administrativa pública (resoluciones de SIPI), pero el repo
-> se dejó **privado** por eso mismo: son datos de casos concretos, no
-> sintéticos.
+> **Nota sobre los datos incluidos:** los `.xlsx` sueltos en la raíz,
+> `discrepancias.csv` y `tests/propios/` contienen expedientes, marcas y
+> opositores reales de SIC. Es información administrativa pública, pero el
+> repo se dejó **privado** por tratarse de casos concretos, no sintéticos.
 
-## Correr desde el código fuente
+## Desarrollo
 
 No hace falta empaquetar nada para usar el programa. Abre la misma ventana
 que el `.exe`.
@@ -105,7 +98,8 @@ Linux o WSL (`tkinter` va aparte: `sudo apt install python3-tk`):
 ```bash
 python -m venv .venv
 .venv/bin/pip install -r requirements.txt -r requirements-dev.txt
-.venv/bin/python -m app
+.venv/bin/python -m app          # correr desde el código fuente
+.venv/bin/python -m pytest -q    # toda la batería (~130 s)
 ```
 
 Windows:
@@ -148,4 +142,5 @@ con PyInstaller (`--onedir`), copia el resultado a
 ## Ramas
 
 - `main` — historia estable, lo entregado.
-- `develop` — punto de partida para lo que quede pendiente.
+- `develop` — punto de partida para lo pendiente: bajar el 18 % de filas con
+  `Observaciones` y ampliar `alias.json`.

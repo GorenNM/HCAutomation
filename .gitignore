@@ -11,3 +11,9 @@ __pycache__/
 .hypothesis/
 ~$*
 *.tmp
+autoprueba.txt
+
+# Herramientas de IA: regenerable o propio de cada maquina. El unico artefacto
+# que se guarda es proceso/GRAFO.md, el informe legible del grafo del repo.
+graphify-out/
+.claude/
